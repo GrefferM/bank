@@ -37,10 +37,10 @@ export class Obligation {
   @Column('money')
   total_amount: number;
 
-  @Column('boolean')
+  @Column()
   finished: boolean;
 
-  @Column('boolean')
+  @Column()
   debt: boolean;
 
   @Column('timestamp')

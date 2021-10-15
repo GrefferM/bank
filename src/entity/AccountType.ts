@@ -14,7 +14,7 @@ export class AccountType {
   @Column()
   title: string;
 
-  @Column('boolean')
+  @Column()
   debit: boolean;
 
   @OneToMany((type) => Account, (account) => account.type)

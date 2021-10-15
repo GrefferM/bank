@@ -8,7 +8,7 @@ export class Balance {
   @Column('money')
   amount: number;
 
-  @Column('boolean')
+  @Column()
   debt: boolean;
 
   @Column('timestamp')

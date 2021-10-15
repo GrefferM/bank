@@ -31,7 +31,7 @@ export class Operation {
   })
   type: OperationType;
 
-  @Column('boolean')
+  @Column()
   finished: boolean;
 
   @Column('timestamp')
