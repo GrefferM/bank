@@ -1,6 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne, Column, BaseEntity } from "typeorm";
+import { 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  OneToMany, 
+  ManyToOne, 
+  Column, 
+  BaseEntity 
+} from "typeorm";
 import { Region } from "./Region";
 import { User } from "./User";
+import { Employee } from "./Employee";
 
 @Entity()
 export class City extends BaseEntity {
@@ -17,4 +25,7 @@ export class City extends BaseEntity {
 
   @OneToMany((type) => User, (user) => user.city)
   users: User[];
+
+  @OneToMany((type) => Employee, (employee) => employee.city)
+  employes: Employee[];
 }

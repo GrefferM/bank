@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from "typeorm";
+import { City } from './City';
 
 @Entity()
 export class Region extends BaseEntity {
@@ -7,4 +8,7 @@ export class Region extends BaseEntity {
 
   @Column()
   title: string;
+
+  @OneToMany((type) => City, (cities) => cities.region)
+  cities: City[];
 }

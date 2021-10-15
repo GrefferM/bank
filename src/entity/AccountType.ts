@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  OneToMany, 
+  Column, 
+  BaseEntity 
+} from "typeorm";
+import { Account } from "./Account";
 
 @Entity()
 export class AccountType extends BaseEntity {
@@ -10,4 +17,7 @@ export class AccountType extends BaseEntity {
 
   @Column('boolean')
   debit: boolean;
+
+  @OneToMany((type) => Account, (account) => account.type)
+  accounts: Account[];
 }

@@ -1,11 +1,11 @@
-import { 
-  Entity, 
-  PrimaryGeneratedColumn, 
-  OneToOne, 
-  JoinColumn, 
-  Column, 
-  BaseEntity, 
-  ManyToOne 
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+  Column,
+  BaseEntity,
+  ManyToOne
 } from "typeorm";
 import { AccountType } from "./AccountType";
 import { User } from "./User";

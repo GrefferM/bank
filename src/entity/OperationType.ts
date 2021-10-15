@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import { 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  OneToMany, 
+  Column, 
+  BaseEntity 
+} from "typeorm";
+import { Operation } from "./Operation";
 
 @Entity()
 export class OperationType extends BaseEntity {
@@ -10,4 +17,7 @@ export class OperationType extends BaseEntity {
 
   @Column('float4')
   commission: number;
+
+  @OneToMany((type) => Operation, (operation) => operation.type)
+  operations: Operation[];
 }
