@@ -3,15 +3,14 @@ import {
   PrimaryGeneratedColumn, 
   OneToMany, 
   ManyToOne, 
-  Column, 
-  BaseEntity 
+  Column
 } from "typeorm";
 import { Region } from "./Region";
 import { User } from "./User";
 import { Employee } from "./Employee";
 
 @Entity()
-export class City extends BaseEntity {
+export class City {
   @PrimaryGeneratedColumn()
   id: number;
 

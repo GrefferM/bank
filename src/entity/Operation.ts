@@ -4,14 +4,13 @@ import {
   OneToOne, 
   JoinColumn, 
   ManyToOne, 
-  Column, 
-  BaseEntity 
+  Column
 } from "typeorm";
 import { OperationType } from "./OperationType";
 import { User } from "./User";
 
 @Entity()
-export class Operation extends BaseEntity {
+export class Operation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

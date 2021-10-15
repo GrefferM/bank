@@ -2,13 +2,12 @@ import {
   Entity, 
   PrimaryGeneratedColumn, 
   OneToMany, 
-  Column, 
-  BaseEntity 
+  Column
 } from "typeorm";
 import { Operation } from "./Operation";
 
 @Entity()
-export class OperationType extends BaseEntity {
+export class OperationType {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -4,7 +4,6 @@ import {
   OneToOne,
   JoinColumn,
   Column,
-  BaseEntity,
   ManyToOne
 } from "typeorm";
 import { AccountType } from "./AccountType";
@@ -12,7 +11,7 @@ import { User } from "./User";
 import { Employee } from "./Employee";
 
 @Entity()
-export class Account extends BaseEntity {
+export class Account {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 

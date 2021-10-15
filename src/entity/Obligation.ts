@@ -1,9 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column, BaseEntity } from "typeorm";
+import { 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  OneToOne, 
+  JoinColumn, 
+  Column 
+} from "typeorm";
 import { User } from "./User";
 import { Employee } from "./Employee";
 
 @Entity()
-export class Obligation extends BaseEntity {
+export class Obligation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

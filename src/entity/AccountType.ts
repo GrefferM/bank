@@ -2,13 +2,12 @@ import {
   Entity, 
   PrimaryGeneratedColumn, 
   OneToMany, 
-  Column, 
-  BaseEntity 
+  Column
 } from "typeorm";
 import { Account } from "./Account";
 
 @Entity()
-export class AccountType extends BaseEntity {
+export class AccountType {
   @PrimaryGeneratedColumn()
   id: number;
 
