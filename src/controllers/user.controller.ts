@@ -1,0 +1,94 @@
+import {
+  Inject,
+  Controller,
+  Post,
+  Get,
+  Body,
+  Query,
+  HttpStatus,
+  HttpCode,
+  UseFilters
+} from '@nestjs/common';
+import {
+  ApiQuery,
+  ApiResponse,
+  ApiBody,
+  ApiTags
+} from '@nestjs/swagger';
+import { AllExceptionsFilter } from './../../shared/filter/http-exception.filter';
+import { UserService } from './../../src/service/user/user.service';
+import { IDBResponse } from './../../interfaces/db.response.interface';
+import { IResponseUser } from './../../interfaces/user.response.interface';
+import { SetUserDTO } from './../../shared/dto/set.user.dto';
+import { GetUserDTO } from './../../shared/dto/get.user.dto';
+import { Error } from './../../shared/entity/error.entity';
+import { ResponseEntity } from './../../shared/entity/response.entity';
+import { GetUserEntity } from './../../shared/entity/get.user.entity';
+
+@Controller('api')
+export class UserController {
+  /**
+   * Constructor UserController
+   * @param {UserService} @Inject('UserService') private userService
+   */
+  constructor(
+    @Inject(UserService)
+    private userService: UserService
+  ) { }
+  /**
+   * Set user
+   * @param   {string} name
+   * @param   {string} phone
+   * @param   {string} email
+   * @param   {string} address
+   * @param   {number} city
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('User')
+  @ApiBody({ type: SetUserDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull save user',
+    type: ResponseEntity
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Post('user')
+  @HttpCode(HttpStatus.OK)
+  setUserHandler(@Body() body: SetUserDTO): Promise<IDBResponse> {
+    return this.userService.setUser(
+      body.name, 
+      body.phone, 
+      body.email, 
+      body.address, 
+      body.city
+    );
+  }
+  /**
+   * Get user by id
+   * @param   {uuid} id
+   * @returns {Promise<IResponseUser>}
+   */
+  @ApiTags('User')
+  @ApiQuery({ type: GetUserDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull get user',
+    type: GetUserEntity
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Get('user')
+  @HttpCode(HttpStatus.OK)
+  getUserHandler(@Query() query: GetUserDTO): Promise<IResponseUser> {
+    return this.userService.getUser(query.id);
+  }
+}
