@@ -35,15 +35,15 @@ export class User {
   @ManyToOne(type => Obligation, (obligation) => obligation.user, {
     nullable: false
   })
-  obligation: Obligation;
+  obligations: Obligation[];
 
   @ManyToOne(type => Operation, (operation) => operation.payer, {
     nullable: false
   })
-  payer: Operation;
+  payers: Operation[];
 
   @ManyToOne(type => Operation, (operation) => operation.recipient, {
     nullable: false
   })
-  recipient: Operation;
+  recipients: Operation[];
 }

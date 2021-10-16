@@ -35,5 +35,5 @@ export class Employee {
   @ManyToOne(type => Obligation, (obligation) => obligation.user, {
     nullable: false
   })
-  obligation: Obligation;
+  obligations: Obligation[];
 }
