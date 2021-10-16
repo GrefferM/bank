@@ -64,7 +64,7 @@ export class UserService {
    * @param   {uuid} id
    * @returns {Promise<IResponseUser>}
    */
-  public async getUser(id: string): Promise<IResponseUser> {
+  public async getUserById(id: string): Promise<IResponseUser> {
     try {
       const user = await this.userRepository.findOne({ id: id });
 

@@ -52,7 +52,7 @@ export class CityService {
    * @param   {number} id
    * @returns {Promise<IResponseCity>}
    */
-  public async getCity(id: number): Promise<IResponseCity> {
+  public async getCityById(id: number): Promise<IResponseCity> {
     try {
       const city = await this.cityRepository.findOne({ id: id });
 

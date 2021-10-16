@@ -14,7 +14,7 @@ describe('RegionController', () => {
   let app: INestApplication;
   const regionService = {
     setRegion: () => Promise.resolve(responseDB),
-    getRegion: () => Promise.resolve(responseGetRegion)
+    getRegionById: () => Promise.resolve(responseGetRegion)
   };
 
   beforeEach(async () => {
@@ -41,7 +41,7 @@ describe('RegionController', () => {
   });
 
   describe('GET /region', () => {
-    it('execute for get region', async () => {
+    it('execute for get region by id', async () => {
       return request(app.getHttpServer())
         .get('/api/region?id=1')
         .then((res: { status: number; body: IResponseRegion }) => {

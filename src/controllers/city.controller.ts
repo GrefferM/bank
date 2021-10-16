@@ -79,7 +79,7 @@ export class CityController {
   @UseFilters(AllExceptionsFilter)
   @Get('city')
   @HttpCode(HttpStatus.OK)
-  getCityHandler(@Query() query: GetCityDTO): Promise<IResponseCity> {
-    return this.cityService.getCity(query.id)
+  getCityByIdHandler(@Query() query: GetCityDTO): Promise<IResponseCity> {
+    return this.cityService.getCityById(query.id)
   }
 }

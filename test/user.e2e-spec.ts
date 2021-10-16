@@ -14,7 +14,7 @@ describe('UserController', () => {
   let app: INestApplication;
   const userService = {
     setUser: () => Promise.resolve(responseDB),
-    getUser: () => Promise.resolve(responseGetUser)
+    getUserById: () => Promise.resolve(responseGetUser)
   };
 
   beforeEach(async () => {
@@ -43,7 +43,7 @@ describe('UserController', () => {
   });
 
   describe('GET /user', () => {
-    it('execute for get user', async () => {
+    it('execute for get user by id', async () => {
       return request(app.getHttpServer())
         .get('/api/user?id=5dec5770-2d8c-11ec-8d3d-0242ac130003')
         .then((res: { status: number; body: IResponseUser }) => {

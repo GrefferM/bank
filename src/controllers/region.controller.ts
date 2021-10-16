@@ -79,7 +79,7 @@ export class RegionController {
   @UseFilters(AllExceptionsFilter)
   @Get('region')
   @HttpCode(HttpStatus.OK)
-  getRegionHandler(@Query() query: GetRegionDTO): Promise<IResponseRegion> {
-    return this.regionService.getRegion(query.id)
+  getRegionByIdHandler(@Query() query: GetRegionDTO): Promise<IResponseRegion> {
+    return this.regionService.getRegionById(query.id)
   }
 }

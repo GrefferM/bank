@@ -14,7 +14,7 @@ describe('CityController', () => {
   let app: INestApplication;
   const cityService = {
     setCity: () => Promise.resolve(responseDB),
-    getCity: () => Promise.resolve(responseGetCity)
+    getCityById: () => Promise.resolve(responseGetCity)
   };
 
   beforeEach(async () => {
@@ -43,7 +43,7 @@ describe('CityController', () => {
   });
 
   describe('GET /city', () => {
-    it('execute for get city', async () => {
+    it('execute for get city by id', async () => {
       return request(app.getHttpServer())
         .get('/api/city?id=1')
         .then((res: { status: number; body: IResponseCity }) => {

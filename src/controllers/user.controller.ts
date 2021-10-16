@@ -88,7 +88,7 @@ export class UserController {
   @UseFilters(AllExceptionsFilter)
   @Get('user')
   @HttpCode(HttpStatus.OK)
-  getUserHandler(@Query() query: GetUserDTO): Promise<IResponseUser> {
-    return this.userService.getUser(query.id);
+  getUserByIdHandler(@Query() query: GetUserDTO): Promise<IResponseUser> {
+    return this.userService.getUserById(query.id);
   }
 }

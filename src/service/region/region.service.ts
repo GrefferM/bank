@@ -45,7 +45,7 @@ export class RegionService {
    * @param   {number} id
    * @returns {Promise<IResponseRegion>}
    */
-  public async getRegion(id: number): Promise<IResponseRegion> {
+  public async getRegionById(id: number): Promise<IResponseRegion> {
     try {
       const region = await this.regionRepository.findOne({ id: id });
 
