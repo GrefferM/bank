@@ -3,7 +3,8 @@ import {
   PrimaryGeneratedColumn, 
   OneToMany, 
   ManyToOne, 
-  Column
+  Column,
+  JoinColumn
 } from "typeorm";
 import { Region } from "./Region";
 import { User } from "./User";
@@ -20,6 +21,7 @@ export class City {
   @ManyToOne(type => Region, {
     nullable: false
   })
+  @JoinColumn()
   region: Region;
 
   @OneToMany((type) => User, (user) => user.city)

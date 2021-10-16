@@ -29,6 +29,7 @@ export class Operation {
   @ManyToOne(type => OperationType, {
     nullable: false
   })
+  @JoinColumn()
   type: OperationType;
 
   @Column()

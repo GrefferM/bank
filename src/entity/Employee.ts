@@ -3,9 +3,11 @@ import {
   PrimaryGeneratedColumn, 
   OneToOne, 
   JoinColumn, 
-  Column 
+  Column,
+  ManyToOne
 } from "typeorm";
 import { City } from "./City";
+import { Obligation } from "./Obligation";
 
 @Entity()
 export class Employee {
@@ -29,4 +31,9 @@ export class Employee {
   })
   @JoinColumn()
   city: City;
+
+  @ManyToOne(type => Obligation, (obligation) => obligation.user, {
+    nullable: false
+  })
+  obligation: Obligation;
 }

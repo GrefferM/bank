@@ -18,6 +18,7 @@ export class Account {
   @ManyToOne(type => AccountType, {
     nullable: false
   })
+  @JoinColumn()
   type: AccountType;
 
   @OneToOne(type => User, {
