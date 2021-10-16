@@ -19,10 +19,12 @@ import { AllExceptionsFilter } from './../../shared/filter/http-exception.filter
 import { CityService } from './../../src/service/city/city.service';
 import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseCity } from './../../interfaces/city.response.interface';
+import { IResponseCities } from './../../interfaces/cities.response.interface';
 import { SetCityDTO } from './../../shared/dto/set.city.dto';
 import { GetCityDTO } from './../../shared/dto/get.city.dto';
 import { Error } from './../../shared/entity/error.entity';
 import { ResponseEntity } from './../../shared/entity/response.entity';
+import { GetCitiesEntity } from './../../shared/entity/get.cities.entity';
 import { GetCityEntity } from './../../shared/entity/get.city.entity';
 
 @Controller('api')
@@ -60,10 +62,31 @@ export class CityController {
     return this.cityService.setCity(body.title, body.region);
   }
   /**
-   * Get city by id
-   * @param   {number} id
-   * @returns {Promise<IResponseCity>}
+   * Get cities
+   * @returns {Promise<IResponseCities>}
    */
+  @ApiTags('City')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull get cities',
+    type: GetCitiesEntity
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Get('city')
+  @HttpCode(HttpStatus.OK)
+  getCitiesHandler(): Promise<IResponseCities> {
+    return this.cityService.getCities();
+  }
+  /**
+  * Get city by id
+  * @param   {number} id
+  * @returns {Promise<IResponseCity>}
+  */
   @ApiTags('City')
   @ApiQuery({ type: GetCityDTO })
   @ApiResponse({
@@ -77,9 +100,9 @@ export class CityController {
     type: Error
   })
   @UseFilters(AllExceptionsFilter)
-  @Get('city')
+  @Get('city/single')
   @HttpCode(HttpStatus.OK)
   getCityByIdHandler(@Query() query: GetCityDTO): Promise<IResponseCity> {
-    return this.cityService.getCityById(query.id)
+    return this.cityService.getCityById(query.id);
   }
 }

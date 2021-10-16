@@ -6,8 +6,6 @@ import {
   JoinColumn
 } from "typeorm";
 import { City } from "./City";
-import { Obligation } from "./Obligation";
-import { Operation } from "./Operation";
 
 @Entity()
 export class User {
@@ -31,19 +29,4 @@ export class User {
   })
   @JoinColumn()
   city: City;
-
-  @ManyToOne(type => Obligation, (obligation) => obligation.user, {
-    nullable: false
-  })
-  obligations: Obligation[];
-
-  @ManyToOne(type => Operation, (operation) => operation.payer, {
-    nullable: false
-  })
-  payers: Operation[];
-
-  @ManyToOne(type => Operation, (operation) => operation.recipient, {
-    nullable: false
-  })
-  recipients: Operation[];
 }

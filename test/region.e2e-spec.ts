@@ -7,13 +7,16 @@ import { RegionService } from './../src/service/region/region.service';
 import { DATABASE_CONNECTION, REGION_REPOSITORY } from './../src/constants';
 import { IDBResponse } from './../interfaces/db.response.interface';
 import { IResponseRegion } from './../interfaces/region.response.interface';
+import { IResponseRegions } from './../interfaces/regions.response.interface';
 import { responseGetRegion } from './mock/mock.response.get.region';
+import { responseGetRegions } from './mock/mock.response.get.regions';
 import { responseDB } from './mock/mock.response.db';
 
 describe('RegionController', () => {
   let app: INestApplication;
   const regionService = {
     setRegion: () => Promise.resolve(responseDB),
+    getRegions: () => Promise.resolve(responseGetRegions),
     getRegionById: () => Promise.resolve(responseGetRegion)
   };
 
@@ -41,9 +44,20 @@ describe('RegionController', () => {
   });
 
   describe('GET /region', () => {
+    it('execute for get region', async () => {
+      return request(app.getHttpServer())
+        .get('/api/region')
+        .then((res: { status: number; body: IResponseRegions }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseGetRegions);
+        });
+    });
+  });
+
+  describe('GET /region/single', () => {
     it('execute for get region by id', async () => {
       return request(app.getHttpServer())
-        .get('/api/region?id=1')
+        .get('/api/region/single?id=1')
         .then((res: { status: number; body: IResponseRegion }) => {
           expect(res.status).toBe(200);
           expect(res.body).toEqual(responseGetRegion);

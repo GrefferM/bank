@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IRegion } from './../../interfaces/region.interface';
+import { IRegion } from '../../interfaces/region.interface';
 
 export class GetRegionEntity {
   @ApiProperty({
@@ -21,12 +21,10 @@ export class GetRegionEntity {
   success: boolean;
 
   @ApiProperty({
-    example: [
-      {
-        id: 1,
-        title: 'TEST'
-      }
-    ]
+    example: {
+      id: 1,
+      title: 'TEST'
+    }
   })
-  data: IRegion[];
+  data: IRegion;
 }

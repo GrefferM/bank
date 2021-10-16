@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { Region } from './../../entity/Region';
 import { IDBResponse } from './../../../interfaces/db.response.interface';
 import { IResponseRegion } from './../../../interfaces/region.response.interface';
+import { IResponseRegions } from './../../../interfaces/regions.response.interface';
 import { REGION_REPOSITORY } from './../../constants';
 
 @Injectable()
@@ -41,6 +42,27 @@ export class RegionService {
     }
   }
   /**
+   * Get regions
+   * @returns {Promise<IResponseRegions>}
+   */
+  public async getRegions(): Promise<IResponseRegions> {
+    try {
+      const region = await this.regionRepository.find();
+
+      return {
+        success: true,
+        message: 'success',
+        data: region ? region : null
+      }
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message,
+        data: null
+      }
+    }
+  }
+  /**
    * Get region
    * @param   {number} id
    * @returns {Promise<IResponseRegion>}
@@ -52,7 +74,7 @@ export class RegionService {
       return {
         success: true,
         message: 'success',
-        data: region
+        data: region ? region : null
       }
     } catch (err) {
       return {

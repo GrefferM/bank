@@ -4,6 +4,7 @@ import { User } from './../../entity/User';
 import { City } from './../../entity/City';
 import { IDBResponse } from './../../../interfaces/db.response.interface';
 import { IResponseUser } from './../../../interfaces/user.response.interface';
+import { IResponseUsers } from './../../../interfaces/users.response.interface';
 import { CITY_REPOSITORY, USER_REPOSITORY } from './../../constants';
 
 @Injectable()
@@ -60,6 +61,27 @@ export class UserService {
     }
   }
   /**
+   * Get users
+   * @returns {Promise<IResponseUsers>}
+   */
+  public async getUsers(): Promise<IResponseUsers> {
+    try {
+      const user = await this.userRepository.find();
+
+      return {
+        success: true,
+        message: 'success',
+        data: user ? user : null
+      }
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message,
+        data: null
+      }
+    }
+  }
+  /**
    * Get user
    * @param   {uuid} id
    * @returns {Promise<IResponseUser>}
@@ -71,7 +93,7 @@ export class UserService {
       return {
         success: true,
         message: 'success',
-        data: user
+        data: user ? user : null
       }
     } catch (err) {
       return {

@@ -7,13 +7,16 @@ import { UserService } from './../src/service/user/user.service';
 import { DATABASE_CONNECTION, USER_REPOSITORY, CITY_REPOSITORY } from './../src/constants';
 import { IDBResponse } from './../interfaces/db.response.interface';
 import { IResponseUser } from './../interfaces/user.response.interface';
+import { IResponseUsers } from './../interfaces/users.response.interface';
 import { responseGetUser } from './mock/mock.response.get.user';
+import { responseGetUsers } from './mock/mock.response.get.users';
 import { responseDB } from './mock/mock.response.db';
 
 describe('UserController', () => {
   let app: INestApplication;
   const userService = {
     setUser: () => Promise.resolve(responseDB),
+    getUsers: () => Promise.resolve(responseGetUsers),
     getUserById: () => Promise.resolve(responseGetUser)
   };
 
@@ -43,9 +46,20 @@ describe('UserController', () => {
   });
 
   describe('GET /user', () => {
+    it('execute for get user', async () => {
+      return request(app.getHttpServer())
+        .get('/api/user')
+        .then((res: { status: number; body: IResponseUsers }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseGetUsers);
+        });
+    });
+  });
+
+  describe('GET /user/single', () => {
     it('execute for get user by id', async () => {
       return request(app.getHttpServer())
-        .get('/api/user?id=5dec5770-2d8c-11ec-8d3d-0242ac130003')
+        .get('/api/user/single?id=5dec5770-2d8c-11ec-8d3d-0242ac130003')
         .then((res: { status: number; body: IResponseUser }) => {
           expect(res.status).toBe(200);
           expect(res.body).toEqual(responseGetUser);

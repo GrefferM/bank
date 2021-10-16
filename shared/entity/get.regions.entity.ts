@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ICity } from '../../interfaces/city.interface';
+import { IRegion } from '../../interfaces/region.interface';
 
-export class GetCityEntity {
+export class GetRegionsEntity {
   @ApiProperty({
     description: 'Response status',
     example: 200
@@ -21,11 +21,12 @@ export class GetCityEntity {
   success: boolean;
 
   @ApiProperty({
-    example: {
-      id: 1,
-      name: 'TEST',
-      region: 1
-    }
+    example: [
+      {
+        id: 1,
+        title: 'TEST'
+      }
+    ]
   })
-  data: ICity[];
+  data: IRegion[];
 }

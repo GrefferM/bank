@@ -4,6 +4,7 @@ import { City } from './../../entity/City';
 import { Region } from './../../entity/Region';
 import { IDBResponse } from './../../../interfaces/db.response.interface';
 import { IResponseCity } from './../../../interfaces/city.response.interface';
+import { IResponseCities } from './../../../interfaces/cities.response.interface';
 import { CITY_REPOSITORY, REGION_REPOSITORY } from './../../constants';
 
 @Injectable()
@@ -48,6 +49,27 @@ export class CityService {
     }
   }
   /**
+   * Get cities
+   * @returns {Promise<IResponseCities>}
+   */
+  public async getCities(): Promise<IResponseCities> {
+    try {
+      const city = await this.cityRepository.find();
+
+      return {
+        success: true,
+        message: 'success',
+        data: city ? city : null
+      }
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message,
+        data: null
+      }
+    }
+  }
+  /**
    * Get city
    * @param   {number} id
    * @returns {Promise<IResponseCity>}
@@ -59,7 +81,7 @@ export class CityService {
       return {
         success: true,
         message: 'success',
-        data: city
+        data: city ? city : null
       }
     } catch (err) {
       return {
