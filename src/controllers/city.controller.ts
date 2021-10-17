@@ -100,7 +100,7 @@ export class CityController {
     type: Error
   })
   @UseFilters(AllExceptionsFilter)
-  @Get('city/single')
+  @Get('city-single')
   @HttpCode(HttpStatus.OK)
   getCityByIdHandler(@Query() query: GetCityDTO): Promise<IResponseCity> {
     return this.cityService.getCityById(query.id);

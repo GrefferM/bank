@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IAccount } from './../../interfaces/account.interface';
+import { IAccountType } from './../../interfaces/account.type.interface';
 
-export class GetAccountEntity {
+export class GetAccountTypeEntity {
   @ApiProperty({
     description: 'Response status',
     example: 200
@@ -22,13 +22,10 @@ export class GetAccountEntity {
 
   @ApiProperty({
     example: {
-      id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
-      type: 1,
-      user: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
-      employee: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
-      balance: 1,
-      created: new Date().toString()
+      id: 1,
+      title: 'Test',
+      debit: true
     }
   })
-  data: IAccount;
+  data: IAccountType;
 }

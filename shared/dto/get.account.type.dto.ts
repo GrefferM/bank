@@ -4,7 +4,7 @@ import {
   IsPositive
 } from 'class-validator';
 
-export class GetAccountDTO {
+export class GetAccountTypeDTO {
   @ApiProperty({
     type: Number,
     required: true

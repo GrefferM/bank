@@ -100,7 +100,7 @@ export class RegionController {
     type: Error
   })
   @UseFilters(AllExceptionsFilter)
-  @Get('region/single')
+  @Get('region-single')
   @HttpCode(HttpStatus.OK)
   getRegionByIdHandler(@Query() query: GetRegionDTO): Promise<IResponseRegion> {
     return this.regionService.getRegionById(query.id)

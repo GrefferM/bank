@@ -109,7 +109,7 @@ export class UserController {
     type: Error
   })
   @UseFilters(AllExceptionsFilter)
-  @Get('user/single')
+  @Get('user-single')
   @HttpCode(HttpStatus.OK)
   getUserByIdHandler(@Query() query: GetUserDTO): Promise<IResponseUser> {
     return this.userService.getUserById(query.id);

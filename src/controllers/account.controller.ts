@@ -67,7 +67,7 @@ export class AccountController {
     );
   }
   /**
-   * Get account
+   * Get accounts
    * @returns {Promise<IResponseAccounts>}
    */
   @ApiTags('Account')
@@ -105,7 +105,7 @@ export class AccountController {
     type: Error
   })
   @UseFilters(AllExceptionsFilter)
-  @Get('account/single')
+  @Get('account-single')
   @HttpCode(HttpStatus.OK)
   getAccountByIdHandler(@Query() query: GetAccountDTO): Promise<IResponseAccount> {
     return this.accountService.getAccountById(query.id);
