@@ -3,7 +3,7 @@ import {
   IsUUID
 } from 'class-validator';
 
-export class GetAccountDTO {
+export class GetEmployeeDTO {
   @ApiProperty({
     type: String,
     required: true

@@ -66,10 +66,10 @@ describe('AccountController', () => {
     });
   });
 
-  describe('GET /account/single', () => {
+  describe('GET /account-single', () => {
     it('execute for get account by id', async () => {
       return request(app.getHttpServer())
-        .get('/api/account/single?id=5dec5770-2d8c-11ec-8d3d-0242ac130003')
+        .get('/api/account-single?id=5dec5770-2d8c-11ec-8d3d-0242ac130003')
         .then((res: { status: number; body: IResponseAccount }) => {
           expect(res.status).toBe(200);
           expect(res.body).toEqual(responseGetAccount);

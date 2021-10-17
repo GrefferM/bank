@@ -13,7 +13,7 @@ import { Employee } from "./Employee";
 @Entity()
 export class Account {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @ManyToOne(type => AccountType, {
     nullable: false

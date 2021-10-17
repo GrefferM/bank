@@ -96,7 +96,7 @@ export class AccountService {
    * @param   {number} id
    * @returns {Promise<IResponseAccount>}
    */
-  public async getAccountById(id: number): Promise<IResponseAccount> {
+  public async getAccountById(id: string): Promise<IResponseAccount> {
     try {
       const account = await this.accountRepository.findOne({ id: id });
 

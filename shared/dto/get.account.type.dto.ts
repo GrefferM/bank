@@ -3,12 +3,14 @@ import {
   IsNumber, 
   IsPositive
 } from 'class-validator';
+import { Transform } from 'class-transformer';
 
 export class GetAccountTypeDTO {
   @ApiProperty({
     type: Number,
     required: true
   })
+  @Transform(({ value: id }) => parseInt(id))
   @IsPositive()
   @IsNumber()
   id: number;

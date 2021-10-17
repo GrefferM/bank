@@ -56,10 +56,10 @@ describe('UserController', () => {
     });
   });
 
-  describe('GET /user/single', () => {
+  describe('GET /user-single', () => {
     it('execute for get user by id', async () => {
       return request(app.getHttpServer())
-        .get('/api/user/single?id=5dec5770-2d8c-11ec-8d3d-0242ac130003')
+        .get('/api/user-single?id=5dec5770-2d8c-11ec-8d3d-0242ac130003')
         .then((res: { status: number; body: IResponseUser }) => {
           expect(res.status).toBe(200);
           expect(res.body).toEqual(responseGetUser);

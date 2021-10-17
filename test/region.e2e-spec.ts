@@ -54,10 +54,10 @@ describe('RegionController', () => {
     });
   });
 
-  describe('GET /region/single', () => {
+  describe('GET /region-single', () => {
     it('execute for get region by id', async () => {
       return request(app.getHttpServer())
-        .get('/api/region/single?id=1')
+        .get('/api/region-single?id=1')
         .then((res: { status: number; body: IResponseRegion }) => {
           expect(res.status).toBe(200);
           expect(res.body).toEqual(responseGetRegion);

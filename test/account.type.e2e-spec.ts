@@ -57,10 +57,10 @@ describe('AccountTypeController', () => {
     });
   });
 
-  describe('GET /account-type/single', () => {
+  describe('GET /account-type-single', () => {
     it('execute for get account type by id', async () => {
       return request(app.getHttpServer())
-        .get('/api/account-type/single?id=1')
+        .get('/api/account-type-single?id=1')
         .then((res: { status: number; body: IResponseAccountType }) => {
           expect(res.status).toBe(200);
           expect(res.body).toEqual(responseGetAccountType);

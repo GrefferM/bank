@@ -56,10 +56,10 @@ describe('CityController', () => {
     });
   });
 
-  describe('GET /city/single', () => {
+  describe('GET /city-single', () => {
     it('execute for get city by id', async () => {
       return request(app.getHttpServer())
-        .get('/api/city/single?id=1')
+        .get('/api/city-single?id=1')
         .then((res: { status: number; body: IResponseCity }) => {
           expect(res.status).toBe(200);
           expect(res.body).toEqual(responseGetCity);
