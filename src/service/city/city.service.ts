@@ -11,7 +11,8 @@ import { CITY_REPOSITORY, REGION_REPOSITORY } from './../../constants';
 export class CityService {
   /**
    * Constructor CityService
-   * @param {CITY_REPOSITORY} @Inject('CITY_REPOSITORY') private cityRepository
+   * @param {CITY_REPOSITORY}   @Inject('CITY_REPOSITORY')   private cityRepository
+   * @param {REGION_REPOSITORY} @Inject('REGION_REPOSITORY') private regionRepository
    */
   constructor(
     @Inject(CITY_REPOSITORY)

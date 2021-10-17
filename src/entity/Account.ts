@@ -36,6 +36,8 @@ export class Account {
   @Column('money')
   balance: number;
 
-  @Column('timestamp')
+  @Column('timestamp', {
+    default: new Date()
+  })
   created: Date;
 }

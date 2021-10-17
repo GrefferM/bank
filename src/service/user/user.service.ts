@@ -12,6 +12,7 @@ export class UserService {
   /**
    * Constructor UserService
    * @param {USER_REPOSITORY} @Inject('USER_REPOSITORY') private userRepository
+   * @param {CITY_REPOSITORY} @Inject('CITY_REPOSITORY') private cityRepository
    */
   constructor(
     @Inject(USER_REPOSITORY)
