@@ -20,8 +20,8 @@ export class SetCityDTO {
     type: Number,
     required: true
   })
-  @Transform(({ value: region }) => parseInt(region))
+  @Transform(({ value: region_id }) => parseInt(region_id))
   @IsPositive()
   @IsNumber()
-  region: number;
+  region_id: number;
 }

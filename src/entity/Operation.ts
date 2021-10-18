@@ -35,6 +35,8 @@ export class Operation {
   @Column()
   finished: boolean;
 
-  @Column('timestamp')
+  @Column('timestamp', {
+    default: new Date()
+  })
   created: Date;
 }

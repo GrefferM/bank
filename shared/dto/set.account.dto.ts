@@ -12,10 +12,10 @@ export class SetAccountDTO {
     type: Number,
     required: true
   })
-  @Transform(({ value: city }) => parseInt(city))
+  @Transform(({ value: type_id }) => parseInt(type_id))
   @IsPositive()
   @IsNumber()
-  type: number;
+  type_id: number;
 
   @ApiProperty({
     type: String,
@@ -23,7 +23,7 @@ export class SetAccountDTO {
   })
   @IsUUID()
   @IsString()
-  user: string;
+  user_id: string;
 
   @ApiProperty({
     type: String,
@@ -31,5 +31,5 @@ export class SetAccountDTO {
   })
   @IsUUID()
   @IsString()
-  employee: string;
+  employee_id: string;
 }

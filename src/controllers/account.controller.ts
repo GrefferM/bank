@@ -39,9 +39,9 @@ export class AccountController {
   ) { }
   /**
    * Set account
-   * @param   {number} type
-   * @param   {string} user
-   * @param   {string} employee
+   * @param   {number} type_id
+   * @param   {uuid}   user_id
+   * @param   {uuid}   employee_id
    * @returns {Promise<IDBResponse>}
    */
   @ApiTags('Account')
@@ -61,9 +61,9 @@ export class AccountController {
   @HttpCode(HttpStatus.OK)
   setAccountHandler(@Body() body: SetAccountDTO): Promise<IDBResponse> {
     return this.accountService.setAccount(
-      body.type,
-      body.user,
-      body.employee
+      body.type_id,
+      body.user_id,
+      body.employee_id
     );
   }
   /**
@@ -89,7 +89,7 @@ export class AccountController {
   }
   /**
    * Get account by id
-   * @param   {number} id
+   * @param   {uuid} id
    * @returns {Promise<IResponseAccount>}
    */
   @ApiTags('Account')

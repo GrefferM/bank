@@ -26,7 +26,7 @@ export class EmployeeService {
    * @param   {string} phone
    * @param   {string} email
    * @param   {string} address
-   * @param   {number} city
+   * @param   {number} city_id
    * @returns {Promise<IDBResponse>}
    */
   public async setEmployee(

@@ -93,7 +93,7 @@ export class AccountService {
   }
   /**
    * Get account
-   * @param   {number} id
+   * @param   {uuid} id
    * @returns {Promise<IResponseAccount>}
    */
   public async getAccountById(id: string): Promise<IResponseAccount> {

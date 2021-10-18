@@ -40,7 +40,6 @@ export class RegionController {
   /**
    * Set city
    * @param   {string} title
-   * @param   {number} region
    * @returns {Promise<IDBResponse>}
    */
   @ApiTags('Region')

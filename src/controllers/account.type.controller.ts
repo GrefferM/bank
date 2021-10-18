@@ -39,9 +39,8 @@ export class AccountTypeController {
   ) { }
   /**
    * Set account type
-   * @param   {number} type
-   * @param   {string} user
-   * @param   {string} employee
+   * @param   {string}  title
+   * @param   {boolean} debit
    * @returns {Promise<IDBResponse>}
    */
   @ApiTags('AccountType')

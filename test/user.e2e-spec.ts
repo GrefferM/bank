@@ -76,7 +76,7 @@ describe('UserController', () => {
           phone: '380977777777',
           email: 'test@test.com',
           address: 'street 21',
-          city: 1
+          city_id: 1
         })
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(200);

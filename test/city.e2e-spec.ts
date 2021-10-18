@@ -73,7 +73,7 @@ describe('CityController', () => {
         .post('/api/city')
         .send({
           title: 'TEST_CITY',
-          region: 1
+          region_id: 1
         })
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(200);

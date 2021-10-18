@@ -48,8 +48,8 @@ export class SetUserDTO {
     type: Number,
     required: true
   })
-  @Transform(({ value: city }) => parseInt(city))
+  @Transform(({ value: city_id }) => parseInt(city_id))
   @IsPositive()
   @IsNumber()
-  city: number;
+  city_id: number;
 }

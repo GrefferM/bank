@@ -46,7 +46,9 @@ export class Obligation {
   @Column('timestamp')
   next_payment: Date;
 
-  @Column('timestamp')
+  @Column('timestamp', {
+    default: new Date()
+  })
   created_at: Date;
 
   @Column('timestamp')

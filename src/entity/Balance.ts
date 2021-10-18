@@ -10,7 +10,4 @@ export class Balance {
 
   @Column()
   debt: boolean;
-
-  @Column('timestamp')
-  created_at: Date;
 }

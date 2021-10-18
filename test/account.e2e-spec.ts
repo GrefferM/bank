@@ -82,9 +82,9 @@ describe('AccountController', () => {
       return request(app.getHttpServer())
         .post('/api/account')
         .send({
-          type: 1,
-          user: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
-          employee: '5dec5770-2d8c-11ec-8d3d-0242ac130003'
+          type_id: 1,
+          user_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          employee_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003'
         })
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(200);

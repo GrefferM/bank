@@ -40,7 +40,7 @@ export class CityController {
   /**
    * Set city
    * @param   {string} title
-   * @param   {number} region
+   * @param   {number} region_id
    * @returns {Promise<IDBResponse>}
    */
   @ApiTags('City')
@@ -59,7 +59,7 @@ export class CityController {
   @Post('city')
   @HttpCode(HttpStatus.OK)
   setCityHandler(@Body() body: SetCityDTO): Promise<IDBResponse> {
-    return this.cityService.setCity(body.title, body.region);
+    return this.cityService.setCity(body.title, body.region_id);
   }
   /**
    * Get cities

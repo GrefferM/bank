@@ -43,7 +43,7 @@ export class UserController {
    * @param   {string} phone
    * @param   {string} email
    * @param   {string} address
-   * @param   {number} city
+   * @param   {number} city_id
    * @returns {Promise<IDBResponse>}
    */
   @ApiTags('User')
@@ -67,7 +67,7 @@ export class UserController {
       body.phone,
       body.email,
       body.address,
-      body.city
+      body.city_id
     );
   }
   /**
