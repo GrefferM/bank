@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IRegion } from '../../interfaces/region.interface';
+import { IAccountType } from '../../interfaces/account.type.interface';
 
-export class GetRegionsEntity {
+export class GetAccountTypeResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200
@@ -21,12 +21,11 @@ export class GetRegionsEntity {
   success: boolean;
 
   @ApiProperty({
-    example: [
-      {
-        id: 1,
-        title: 'TEST'
-      }
-    ]
+    example: {
+      id: 1,
+      title: 'Test',
+      debit: true
+    }
   })
-  data: IRegion[];
+  data: IAccountType;
 }

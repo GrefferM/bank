@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IRegion } from '../../interfaces/region.interface';
 
-export class ResponseEntity {
+export class GetRegionResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200
@@ -9,7 +10,7 @@ export class ResponseEntity {
 
   @ApiProperty({
     description: 'Response message',
-    example: 'Succesfull response'
+    example: 'Data success'
   })
   message: string;
 
@@ -18,4 +19,12 @@ export class ResponseEntity {
     example: true
   })
   success: boolean;
+
+  @ApiProperty({
+    example: {
+      id: 1,
+      title: 'TEST'
+    }
+  })
+  data: IRegion;
 }

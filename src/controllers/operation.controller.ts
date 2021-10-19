@@ -22,10 +22,10 @@ import { IResponseOperation } from './../../interfaces/operation.response.interf
 import { IResponseOperations } from './../../interfaces/operations.response.interface';
 import { SetOperationDTO } from './../../shared/dto/set.operation.dto';
 import { GetOperationDTO } from './../../shared/dto/get.operation.dto';
-import { Error } from './../../shared/entity/error.entity';
-import { ResponseEntity } from './../../shared/entity/response.entity';
-import { GetOperationsEntity } from './../../shared/entity/get.operations.entity';
-import { GetOperationEntity } from './../../shared/entity/get.operation.entity';
+import { Error } from '../../shared/response/error.response';
+import { Response } from '../../shared/response/response.response';
+import { GetOperationsResponse } from '../../shared/response/get.operations.response';
+import { GetOperationResponse } from '../../shared/response/get.operation.response';
 
 @Controller('api')
 export class OperationController {
@@ -49,7 +49,7 @@ export class OperationController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull save operation',
-    type: ResponseEntity
+    type: Response
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -74,7 +74,7 @@ export class OperationController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get operations',
-    type: GetOperationsEntity
+    type: GetOperationsResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -97,7 +97,7 @@ export class OperationController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get operation',
-    type: GetOperationEntity
+    type: GetOperationResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,

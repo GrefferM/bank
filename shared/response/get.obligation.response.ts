@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IObligation } from '../../interfaces/obligation.interface';
 
-export class GetObligationEntity {
+export class GetObligationResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200

@@ -22,10 +22,10 @@ import { IResponseObligation } from './../../interfaces/obligation.response.inte
 import { IResponseObligations } from './../../interfaces/obligations.response.interface';
 import { SetObligationDTO } from './../../shared/dto/set.obligation.dto';
 import { GetObligationDTO } from './../../shared/dto/get.obligation.dto';
-import { Error } from './../../shared/entity/error.entity';
-import { ResponseEntity } from './../../shared/entity/response.entity';
-import { GetObligationsEntity } from './../../shared/entity/get.obligations.entity';
-import { GetObligationEntity } from './../../shared/entity/get.obligation.entity';
+import { Error } from '../../shared/response/error.response';
+import { Response } from '../../shared/response/response.response';
+import { GetObligationsResponse } from '../../shared/response/get.obligations.response';
+import { GetObligationResponse } from '../../shared/response/get.obligation.response';
 
 @Controller('api')
 export class ObligationController {
@@ -53,7 +53,7 @@ export class ObligationController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull save obligation',
-    type: ResponseEntity
+    type: Response
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -82,7 +82,7 @@ export class ObligationController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get obligations',
-    type: GetObligationsEntity
+    type: GetObligationsResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -105,7 +105,7 @@ export class ObligationController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get obligation',
-    type: GetObligationEntity
+    type: GetObligationResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,

@@ -22,10 +22,10 @@ import { IResponseAccountType } from './../../interfaces/account.type.response.i
 import { IResponseAccountTypes } from './../../interfaces/account.types.response.interface';
 import { SetAccountTypeDTO } from './../../shared/dto/set.account.type.dto';
 import { GetAccountTypeDTO } from './../../shared/dto/get.account.type.dto';
-import { Error } from './../../shared/entity/error.entity';
-import { ResponseEntity } from './../../shared/entity/response.entity';
-import { GetAccountTypesEntity } from './../../shared/entity/get.account.types.entity';
-import { GetAccountTypeEntity } from './../../shared/entity/get.account.type.entity';
+import { Error } from '../../shared/response/error.response';
+import { Response } from '../../shared/response/response.response';
+import { GetAccountTypesResponse } from '../../shared/response/get.account.types.response';
+import { GetAccountTypeResponse } from '../../shared/response/get.account.type.response';
 
 @Controller('api')
 export class AccountTypeController {
@@ -48,7 +48,7 @@ export class AccountTypeController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull save account type',
-    type: ResponseEntity
+    type: Response
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -72,7 +72,7 @@ export class AccountTypeController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get account types',
-    type: GetAccountTypesEntity
+    type: GetAccountTypesResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -95,7 +95,7 @@ export class AccountTypeController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get account type',
-    type: GetAccountTypeEntity
+    type: GetAccountTypeResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,

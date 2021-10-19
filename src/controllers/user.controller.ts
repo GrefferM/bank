@@ -22,10 +22,10 @@ import { IResponseUser } from './../../interfaces/user.response.interface';
 import { IResponseUsers } from './../../interfaces/users.response.interface';
 import { SetUserDTO } from './../../shared/dto/set.user.dto';
 import { GetUserDTO } from './../../shared/dto/get.user.dto';
-import { Error } from './../../shared/entity/error.entity';
-import { ResponseEntity } from './../../shared/entity/response.entity';
-import { GetUsersEntity } from './../../shared/entity/get.users.entity';
-import { GetUserEntity } from './../../shared/entity/get.user.entity';
+import { Error } from '../../shared/response/error.response';
+import { Response } from '../../shared/response/response.response';
+import { GetUsersResponse } from '../../shared/response/get.users.response';
+import { GetUserResponse } from '../../shared/response/get.user.response';
 
 @Controller('api')
 export class UserController {
@@ -51,7 +51,7 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull save user',
-    type: ResponseEntity
+    type: Response
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -78,7 +78,7 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get users',
-    type: GetUsersEntity
+    type: GetUsersResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -101,7 +101,7 @@ export class UserController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get user',
-    type: GetUserEntity
+    type: GetUserResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,

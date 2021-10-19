@@ -22,10 +22,10 @@ import { IResponseBalance } from './../../interfaces/balance.response.interface'
 import { IResponseBalances } from './../../interfaces/balances.response.interface';
 import { SetBalanceDTO } from './../../shared/dto/set.balance.dto';
 import { GetBalanceDTO } from './../../shared/dto/get.balance.dto';
-import { Error } from './../../shared/entity/error.entity';
-import { ResponseEntity } from './../../shared/entity/response.entity';
-import { GetBalancesEntity } from './../../shared/entity/get.balances.entity';
-import { GetBalanceEntity } from './../../shared/entity/get.balance.entity';
+import { Error } from '../../shared/response/error.response';
+import { Response } from '../../shared/response/response.response';
+import { GetBalancesResponse } from '../../shared/response/get.balances.response';
+import { GetBalanceResponse } from '../../shared/response/get.balance.response';
 
 @Controller('api')
 export class BalanceController {
@@ -48,7 +48,7 @@ export class BalanceController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull save balance',
-    type: ResponseEntity
+    type: Response
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -69,7 +69,7 @@ export class BalanceController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get balances',
-    type: GetBalancesEntity
+    type: GetBalancesResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -92,7 +92,7 @@ export class BalanceController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get balance',
-    type: GetBalanceEntity
+    type: GetBalanceResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,

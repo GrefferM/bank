@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IUser } from '../../interfaces/user.interface';
+import { IOperation } from '../../interfaces/operation.interface';
 
-export class GetUserEntity {
+export class GetOperationsResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200
@@ -21,14 +21,14 @@ export class GetUserEntity {
   success: boolean;
 
   @ApiProperty({
-    example: {
+    example: [{
       id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
-      name: 'TEST',
-      phone: '097-123-45-67',
-      email: 'test@test.com',
-      address: 'test street',
-      city: 1
-    }
+      payer: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+      recipient: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+      type: 1,
+      finished: true,
+      created: new Date().toString()
+    }]
   })
-  data: IUser;
+  data: IOperation[];
 }

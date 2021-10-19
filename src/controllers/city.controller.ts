@@ -22,10 +22,10 @@ import { IResponseCity } from './../../interfaces/city.response.interface';
 import { IResponseCities } from './../../interfaces/cities.response.interface';
 import { SetCityDTO } from './../../shared/dto/set.city.dto';
 import { GetCityDTO } from './../../shared/dto/get.city.dto';
-import { Error } from './../../shared/entity/error.entity';
-import { ResponseEntity } from './../../shared/entity/response.entity';
-import { GetCitiesEntity } from './../../shared/entity/get.cities.entity';
-import { GetCityEntity } from './../../shared/entity/get.city.entity';
+import { Error } from '../../shared/response/error.response';
+import { Response } from '../../shared/response/response.response';
+import { GetCitiesResponse } from '../../shared/response/get.cities.response';
+import { GetCityResponse } from '../../shared/response/get.city.response';
 
 @Controller('api')
 export class CityController {
@@ -48,7 +48,7 @@ export class CityController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull save city',
-    type: ResponseEntity
+    type: Response
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -69,7 +69,7 @@ export class CityController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get cities',
-    type: GetCitiesEntity
+    type: GetCitiesResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -92,7 +92,7 @@ export class CityController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get city',
-    type: GetCityEntity
+    type: GetCityResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,

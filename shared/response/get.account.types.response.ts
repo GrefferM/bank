@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IOperationType } from './../../interfaces/operation.type.interface';
+import { IAccountType } from '../../interfaces/account.type.interface';
 
-export class GetOperationTypesEntity {
+export class GetAccountTypesResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200
@@ -21,11 +21,13 @@ export class GetOperationTypesEntity {
   success: boolean;
 
   @ApiProperty({
-    example: [{
-      id: 1,
-      title: 'TEST',
-      commission: 1
-    }]
+    example: [
+      {
+        id: 1,
+        title: 'Test',
+        debit: true
+      }
+    ]
   })
-  data: IOperationType[];
+  data: IAccountType[];
 }

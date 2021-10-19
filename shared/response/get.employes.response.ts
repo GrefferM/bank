@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IEmployee } from '../../interfaces/employee.interface';
 
-export class GetEmployesEntity {
+export class GetEmployesResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200

@@ -22,10 +22,10 @@ import { IResponseEmployee } from './../../interfaces/employee.response.interfac
 import { IResponseEmployes } from './../../interfaces/employes.response.interface';
 import { SetEmployeeDTO } from './../../shared/dto/set.employee.dto';
 import { GetEmployeeDTO } from './../../shared/dto/get.employee.dto';
-import { Error } from './../../shared/entity/error.entity';
-import { ResponseEntity } from './../../shared/entity/response.entity';
-import { GetEmployesEntity } from './../../shared/entity/get.employes.entity';
-import { GetEmployeeEntity } from './../../shared/entity/get.employee.entity';
+import { Error } from '../../shared/response/error.response';
+import { Response } from '../../shared/response/response.response';
+import { GetEmployesResponse } from '../../shared/response/get.employes.response';
+import { GetEmployeeResponse } from '../../shared/response/get.employee.response';
 
 @Controller('api')
 export class EmployeeController {
@@ -51,7 +51,7 @@ export class EmployeeController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull save employes',
-    type: ResponseEntity
+    type: Response
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -78,7 +78,7 @@ export class EmployeeController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get employes',
-    type: GetEmployesEntity
+    type: GetEmployesResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -101,7 +101,7 @@ export class EmployeeController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get employee',
-    type: GetEmployeeEntity
+    type: GetEmployeeResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,

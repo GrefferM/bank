@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IBalance } from './../../interfaces/balance.interface';
+import { IAccount } from '../../interfaces/account.interface';
 
-export class GetBalancesEntity {
+export class GetAccountsResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200
@@ -24,10 +24,13 @@ export class GetBalancesEntity {
     example: [
       {
         id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
-        amount: 1,
-        debt: true
+        type: 1,
+        user: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+        employee: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+        balance: 1,
+        created: new Date().toString()
       }
     ]
   })
-  data: IBalance[];
+  data: IAccount[];
 }

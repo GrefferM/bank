@@ -22,10 +22,10 @@ import { IResponseRegion } from './../../interfaces/region.response.interface';
 import { IResponseRegions } from './../../interfaces/regions.response.interface';
 import { SetRegionDTO } from './../../shared/dto/set.region.dto';
 import { GetRegionDTO } from './../../shared/dto/get.region.dto';
-import { Error } from './../../shared/entity/error.entity';
-import { ResponseEntity } from './../../shared/entity/response.entity';
-import { GetRegionsEntity } from './../../shared/entity/get.regions.entity';
-import { GetRegionEntity } from './../../shared/entity/get.region.entity';
+import { Error } from '../../shared/response/error.response';
+import { Response } from '../../shared/response/response.response';
+import { GetRegionsResponse } from '../../shared/response/get.regions.response';
+import { GetRegionResponse } from '../../shared/response/get.region.response';
 
 @Controller('api')
 export class RegionController {
@@ -47,7 +47,7 @@ export class RegionController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull save region',
-    type: ResponseEntity
+    type: Response
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -64,23 +64,23 @@ export class RegionController {
    * Get regions
    * @returns {Promise<IResponseRegions>}
    */
-   @ApiTags('Region')
-   @ApiResponse({
-     status: HttpStatus.OK,
-     description: 'Succesfull get regions',
-     type: GetRegionsEntity
-   })
-   @ApiResponse({
-     status: HttpStatus.INTERNAL_SERVER_ERROR,
-     description: 'Error',
-     type: Error
-   })
-   @UseFilters(AllExceptionsFilter)
-   @Get('region')
-   @HttpCode(HttpStatus.OK)
-   getRegionsHandler(): Promise<IResponseRegions> {
-     return this.regionService.getRegions()
-   }
+  @ApiTags('Region')
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull get regions',
+    type: GetRegionsResponse
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Get('region')
+  @HttpCode(HttpStatus.OK)
+  getRegionsHandler(): Promise<IResponseRegions> {
+    return this.regionService.getRegions()
+  }
   /**
    * Get region by id
    * @param   {number} id
@@ -91,7 +91,7 @@ export class RegionController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Succesfull get region',
-    type: GetRegionEntity
+    type: GetRegionResponse
   })
   @ApiResponse({
     status: HttpStatus.INTERNAL_SERVER_ERROR,

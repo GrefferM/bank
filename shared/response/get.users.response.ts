@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IBalance } from './../../interfaces/balance.interface';
+import { IUser } from '../../interfaces/user.interface';
 
-export class GetBalanceEntity {
+export class GetUsersResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200
@@ -21,11 +21,16 @@ export class GetBalanceEntity {
   success: boolean;
 
   @ApiProperty({
-    example: {
-      id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
-      amount: 1,
-      debt: true
-    }
+    example: [
+      {
+        id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+        name: 'TEST',
+        phone: '097-123-45-67',
+        email: 'test@test.com',
+        address: 'test street',
+        city: 1
+      }
+    ]
   })
-  data: IBalance;
+  data: IUser[];
 }

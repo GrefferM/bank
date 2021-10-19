@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IOperation } from '../../interfaces/operation.interface';
 
-export class GetOperationEntity {
+export class GetOperationResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200

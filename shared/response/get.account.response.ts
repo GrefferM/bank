@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IObligation } from '../../interfaces/obligation.interface';
+import { IAccount } from '../../interfaces/account.interface';
 
-export class GetObligationsEntity {
+export class GetAccountResponse {
   @ApiProperty({
     description: 'Response status',
     example: 200
@@ -21,20 +21,14 @@ export class GetObligationsEntity {
   success: boolean;
 
   @ApiProperty({
-    example: [{
+    example: {
       id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+      type: 1,
       user: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
       employee: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
-      percent: 1,
-      insurance: 1,
-      current_amount: 1,
-      total_amount: 1,
-      finished: true,
-      debt: true,
-      next_payment: new Date().toString(),
-      created_at: new Date().toString(),
-      finished_at: new Date().toString()
-    }]
+      balance: 1,
+      created: new Date().toString()
+    }
   })
-  data: IObligation[];
+  data: IAccount;
 }
