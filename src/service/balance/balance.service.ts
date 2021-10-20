@@ -82,6 +82,30 @@ export class BalanceService {
     }
   }
   /**
+   * Delete balance
+   * @param   {uuid}  balance_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async deleteBalance(
+    balance_id: string
+  ): Promise<IDBResponse> {
+    try {
+      return this.balanceRepository
+        .delete({ id: balance_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get balances
    * @returns {Promise<IResponseBalances>}
    */

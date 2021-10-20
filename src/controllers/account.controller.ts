@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Put,
+  Delete,
   Get,
   Body,
   Query,
@@ -23,6 +24,7 @@ import { IResponseAccount } from './../../interfaces/account.response.interface'
 import { IResponseAccounts } from './../../interfaces/accounts.response.interface';
 import { SetAccountDTO } from './../../shared/dto/set.account.dto';
 import { UpdateAccountDTO } from './../../shared/dto/update.account.dto';
+import { DeleteAccountDTO } from './../../shared/dto/delete.account.dto';
 import { GetAccountDTO } from './../../shared/dto/get.account.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -97,6 +99,31 @@ export class AccountController {
       body.type_id,
       body.user_id,
       body.employee_id
+    );
+  }
+  /**
+   * Delete account
+   * @param   {uuid}   account_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Account')
+  @ApiBody({ type: DeleteAccountDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete account',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('account')
+  @HttpCode(HttpStatus.OK)
+  deleteAccountHandler(@Body() body: DeleteAccountDTO): Promise<IDBResponse> {
+    return this.accountService.deleteAccount(
+      body.account_id
     );
   }
   /**

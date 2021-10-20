@@ -2,8 +2,9 @@ import {
   Inject,
   Controller,
   Post,
-  Get,
   Put,
+  Delete,
+  Get,
   Body,
   Query,
   HttpStatus,
@@ -23,6 +24,7 @@ import { IResponseCity } from './../../interfaces/city.response.interface';
 import { IResponseCities } from './../../interfaces/cities.response.interface';
 import { SetCityDTO } from './../../shared/dto/set.city.dto';
 import { UpdateCityDTO } from './../../shared/dto/update.city.dto';
+import { DeleteCityDTO } from './../../shared/dto/delete.city.dto';
 import { GetCityDTO } from './../../shared/dto/get.city.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -87,6 +89,29 @@ export class CityController {
   @HttpCode(HttpStatus.OK)
   updateCityHandler(@Body() body: UpdateCityDTO): Promise<IDBResponse> {
     return this.cityService.updateCity(body.city_id, body.title, body.region_id);
+  }
+  /**
+   * Delete city
+   * @param   {number} city_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('City')
+  @ApiBody({ type: DeleteCityDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete city',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('city')
+  @HttpCode(HttpStatus.OK)
+  deleteCityHandler(@Body() body: DeleteCityDTO): Promise<IDBResponse> {
+    return this.cityService.deleteCity(body.city_id);
   }
   /**
    * Get cities

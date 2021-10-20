@@ -82,6 +82,30 @@ export class OperationTypeService {
     }
   }
   /**
+   * Delete operation type
+   * @param   {number} type_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async deleteOperationType(
+    type_id: number,
+  ): Promise<IDBResponse> {
+    try {
+      return this.operationTypeRepository
+        .delete({ id: type_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get operation types
    * @returns {Promise<IResponseOperationTypes>}
    */

@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Put,
+  Delete,
   Get,
   Body,
   Query,
@@ -23,6 +24,7 @@ import { IResponseEmployee } from './../../interfaces/employee.response.interfac
 import { IResponseEmployes } from './../../interfaces/employes.response.interface';
 import { SetEmployeeDTO } from './../../shared/dto/set.employee.dto';
 import { UpdateEmployeeDTO } from './../../shared/dto/update.employee.dto';
+import { DeleteEmployeeDTO } from './../../shared/dto/delete.employee.dto';
 import { GetEmployeeDTO } from './../../shared/dto/get.employee.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -105,6 +107,31 @@ export class EmployeeController {
       body.email,
       body.address,
       body.city_id
+    );
+  }
+  /**
+   * Delete employee
+   * @param   {uuid}   employee_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Employee')
+  @ApiBody({ type: DeleteEmployeeDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete employes',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('employee')
+  @HttpCode(HttpStatus.OK)
+  deleteEmployeeHandler(@Body() body: DeleteEmployeeDTO): Promise<IDBResponse> {
+    return this.employeeService.deleteEmployee(
+      body.employee_id
     );
   }
   /**

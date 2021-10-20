@@ -80,6 +80,28 @@ export class CityService {
     }
   }
   /**
+   * Delete city
+   * @param   {number} city_id
+   * @returns {Promise<IDBResponse>}
+   */
+   public async deleteCity(city_id: number): Promise<IDBResponse> {
+    try {
+      return this.cityRepository
+        .delete({ id: city_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get cities
    * @returns {Promise<IResponseCities>}
    */

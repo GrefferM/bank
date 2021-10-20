@@ -22,6 +22,7 @@ describe('OperationController', () => {
   const operationService = {
     setOperation: () => Promise.resolve(responseDB),
     updateOperation: () => Promise.resolve(responseDB),
+    deleteOperation: () => Promise.resolve(responseDB),
     getOperations: () => Promise.resolve(responseGetOperations),
     getOperationById: () => Promise.resolve(responseGetOperation)
   };
@@ -120,6 +121,28 @@ describe('OperationController', () => {
     it('execute for update operation (failed)', async () => {
       return request(app.getHttpServer())
         .put('/api/operation')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('DELETE /operation', () => {
+    it('execute for delete operation', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/operation')
+        .send({
+          operation_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003'
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for delete operation (failed)', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/operation')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

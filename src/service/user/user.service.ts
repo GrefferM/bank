@@ -105,6 +105,30 @@ export class UserService {
     }
   }
   /**
+   * Delete user
+   * @param   {uuid} user_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async deleteUser(
+    user_id: string
+  ): Promise<IDBResponse> {
+    try {
+      return this.userRepository
+        .delete({ id: user_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get users
    * @returns {Promise<IResponseUsers>}
    */

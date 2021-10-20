@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Put,
+  Delete,
   Get,
   Body,
   Query,
@@ -23,6 +24,7 @@ import { IResponseObligation } from './../../interfaces/obligation.response.inte
 import { IResponseObligations } from './../../interfaces/obligations.response.interface';
 import { SetObligationDTO } from './../../shared/dto/set.obligation.dto';
 import { UpdateObligationDTO } from './../../shared/dto/update.obligation.dto';
+import { DeleteObligationDTO } from './../../shared/dto/delete.obligation.dto';
 import { GetObligationDTO } from './../../shared/dto/get.obligation.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -113,6 +115,31 @@ export class ObligationController {
       body.current_amount,
       body.total_amount,
       body.debt
+    );
+  }
+  /**
+   * Delete obligation
+   * @param   {uuid} obligation_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Obligation')
+  @ApiBody({ type: DeleteObligationDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete obligation',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('obligation')
+  @HttpCode(HttpStatus.OK)
+  deleteObligationHandler(@Body() body: DeleteObligationDTO): Promise<IDBResponse> {
+    return this.obligationService.deleteObligation(
+      body.obligation_id
     );
   }
   /**

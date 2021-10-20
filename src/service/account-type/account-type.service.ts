@@ -73,6 +73,28 @@ export class AccountTypeService {
     }
   }
   /**
+   * Delete account type
+   * @param   {number}  type_id
+   * @returns {Promise<IDBResponse>}
+   */
+   public async deleteAccountType(type_id: number): Promise<IDBResponse> {
+    try {
+      return this.accountTypeRepository
+        .delete({ id: type_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get account types
    * @returns {Promise<IResponseAccountTypes>}
    */

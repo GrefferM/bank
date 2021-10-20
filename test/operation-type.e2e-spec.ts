@@ -20,6 +20,7 @@ describe('OperationTypeController', () => {
   const operationTypeService = {
     setOperationType: () => Promise.resolve(responseDB),
     updateOperationType: () => Promise.resolve(responseDB),
+    deleteOperationType: () => Promise.resolve(responseDB),
     getOperationTypes: () => Promise.resolve(responseGetOperationTypes),
     getOperationTypeById: () => Promise.resolve(responseGetOperationType)
   };
@@ -110,6 +111,28 @@ describe('OperationTypeController', () => {
     it('execute for update operation type (failed)', async () => {
       return request(app.getHttpServer())
         .put('/api/operation-type')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('DELETE /operation-type', () => {
+    it('execute for delete operation type', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/operation-type')
+        .send({
+          type_id: 1
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for delete operation type (failed)', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/operation-type')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

@@ -20,6 +20,7 @@ describe('AccountTypeController', () => {
   const accountService = {
     setAccountType: () => Promise.resolve(responseDB),
     updateAccountType: () => Promise.resolve(responseDB),
+    deleteAccountType: () => Promise.resolve(responseDB),
     getAccountTypes: () => Promise.resolve(responseGetAccountTypes),
     getAccountTypeById: () => Promise.resolve(responseGetAccountType)
   };
@@ -110,6 +111,28 @@ describe('AccountTypeController', () => {
     it('execute for update account type (failed)', async () => {
       return request(app.getHttpServer())
         .put('/api/account-type')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('DELETE /account-type', () => {
+    it('execute for delete account type', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/account-type')
+        .send({
+          type_id: 1
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for delete account type (failed)', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/account-type')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

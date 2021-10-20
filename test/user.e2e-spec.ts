@@ -17,6 +17,7 @@ describe('UserController', () => {
   const userService = {
     setUser: () => Promise.resolve(responseDB),
     updateUser: () => Promise.resolve(responseDB),
+    deleteUser: () => Promise.resolve(responseDB),
     getUsers: () => Promise.resolve(responseGetUsers),
     getUserById: () => Promise.resolve(responseGetUser)
   };
@@ -115,6 +116,28 @@ describe('UserController', () => {
     it('execute for update user (failed)', async () => {
       return request(app.getHttpServer())
         .put('/api/user')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('DELETE /user', () => {
+    it('execute for delete user', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/user')
+        .send({
+          user_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003'
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for update delete (failed)', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/user')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

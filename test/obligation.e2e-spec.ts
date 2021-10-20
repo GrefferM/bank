@@ -22,6 +22,7 @@ describe('ObligationController', () => {
   const obligationService = {
     setObligation: () => Promise.resolve(responseDB),
     updateObligation: () => Promise.resolve(responseDB),
+    deleteObligation: () => Promise.resolve(responseDB),
     getObligations: () => Promise.resolve(responseGetObligations),
     getObligationById: () => Promise.resolve(responseGetObligation)
   };
@@ -126,6 +127,28 @@ describe('ObligationController', () => {
     it('execute for update obligation (failed)', async () => {
       return request(app.getHttpServer())
         .put('/api/obligation')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('DELETE /obligation', () => {
+    it('execute for delete obligation', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/obligation')
+        .send({
+          obligation_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003'
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for delete obligation (failed)', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/obligation')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

@@ -105,6 +105,35 @@ export class EmployeeService {
     }
   }
   /**
+   * Delete employee
+   * @param   {uuid}   employee_id
+   * @param   {string} name
+   * @param   {string} phone
+   * @param   {string} email
+   * @param   {string} address
+   * @param   {number} city_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async deleteEmployee(
+    employee_id: string
+  ): Promise<IDBResponse> {
+    try {
+      return this.employeeRepository
+        .delete({ id: employee_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get employes
    * @returns {Promise<IResponseEmployes>}
    */

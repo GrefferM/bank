@@ -23,6 +23,7 @@ describe('AccountController', () => {
   const accountService = {
     setAccount: () => Promise.resolve(responseDB),
     updateAccount: () => Promise.resolve(responseDB),
+    deleteAccount: () => Promise.resolve(responseDB),
     getAccounts: () => Promise.resolve(responseGetAccounts),
     getAccountById: () => Promise.resolve(responseGetAccount)
   };
@@ -121,6 +122,28 @@ describe('AccountController', () => {
     it('execute for update account (failed)', async () => {
       return request(app.getHttpServer())
         .put('/api/account')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('DELETE /account', () => {
+    it('execute for delete account', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/account')
+        .send({
+          account_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003'
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for delete account (failed)', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/account')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

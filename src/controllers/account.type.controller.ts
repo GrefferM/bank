@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Put,
+  Delete,
   Get,
   Body,
   Query,
@@ -23,6 +24,7 @@ import { IResponseAccountType } from './../../interfaces/account.type.response.i
 import { IResponseAccountTypes } from './../../interfaces/account.types.response.interface';
 import { SetAccountTypeDTO } from './../../shared/dto/set.account.type.dto';
 import { UpdateAccountTypeDTO } from './../../shared/dto/update.account.type.dto';
+import { DeleteAccountTypeDTO } from './../../shared/dto/delete.account.type.dto';
 import { GetAccountTypeDTO } from './../../shared/dto/get.account.type.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -93,6 +95,31 @@ export class AccountTypeController {
       body.type_id,
       body.title,
       body.debit
+    );
+  }
+  /**
+   * Delete account type
+   * @param   {number}  type_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('AccountType')
+  @ApiBody({ type: DeleteAccountTypeDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete account type',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('account-type')
+  @HttpCode(HttpStatus.OK)
+  deleteAccountTypeHandler(@Body() body: DeleteAccountTypeDTO): Promise<IDBResponse> {
+    return this.accountTypeService.deleteAccountType(
+      body.type_id
     );
   }
   /**

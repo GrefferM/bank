@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Put,
+  Delete,
   Get,
   Body,
   Query,
@@ -23,6 +24,7 @@ import { IResponseBalance } from './../../interfaces/balance.response.interface'
 import { IResponseBalances } from './../../interfaces/balances.response.interface';
 import { SetBalanceDTO } from './../../shared/dto/set.balance.dto';
 import { UpdateBalanceDTO } from './../../shared/dto/update.balance.dto';
+import { DeleteBalanceDTO } from './../../shared/dto/delete.balance.dto';
 import { GetBalanceDTO } from './../../shared/dto/get.balance.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -87,6 +89,29 @@ export class BalanceController {
   @HttpCode(HttpStatus.OK)
   updateBalanceHandler(@Body() body: UpdateBalanceDTO): Promise<IDBResponse> {
     return this.balanceService.updateBalance(body.balance_id, body.amount, body.debt);
+  }
+  /**
+   * Delete balance
+   * @param   {uuid} balance_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Balance')
+  @ApiBody({ type: DeleteBalanceDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete balance',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('balance')
+  @HttpCode(HttpStatus.OK)
+  deleteBalanceHandler(@Body() body: DeleteBalanceDTO): Promise<IDBResponse> {
+    return this.balanceService.deleteBalance(body.balance_id);
   }
   /**
    * Get balances

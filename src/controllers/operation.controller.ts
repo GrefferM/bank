@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Put,
+  Delete,
   Get,
   Body,
   Query,
@@ -23,6 +24,7 @@ import { IResponseOperation } from './../../interfaces/operation.response.interf
 import { IResponseOperations } from './../../interfaces/operations.response.interface';
 import { SetOperationDTO } from './../../shared/dto/set.operation.dto';
 import { UpdateOperationDTO } from './../../shared/dto/update.operation.dto';
+import { DeleteOperationDTO } from './../../shared/dto/delete.operation.dto';
 import { GetOperationDTO } from './../../shared/dto/get.operation.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -100,6 +102,31 @@ export class OperationController {
       body.recipient_id,
       body.type_id,
       body.amount
+    );
+  }
+  /**
+   * Delete operation
+   * @param   {uuid} operation_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Operation')
+  @ApiBody({ type: DeleteOperationDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete operation',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('operation')
+  @HttpCode(HttpStatus.OK)
+  deleteOperationHandler(@Body() body: DeleteOperationDTO): Promise<IDBResponse> {
+    return this.operationService.deleteOperation(
+      body.operation_id
     );
   }
   /**

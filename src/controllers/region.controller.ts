@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Put,
+  Delete,
   Get,
   Body,
   Query,
@@ -23,6 +24,7 @@ import { IResponseRegion } from './../../interfaces/region.response.interface';
 import { IResponseRegions } from './../../interfaces/regions.response.interface';
 import { SetRegionDTO } from './../../shared/dto/set.region.dto';
 import { UpdateRegionDTO } from './../../shared/dto/update.region.dto';
+import { DeleteRegionDTO } from './../../shared/dto/delete.region.dto';
 import { GetRegionDTO } from './../../shared/dto/get.region.dto';
 import { Error } from './../../shared/response/error.response';
 import { Response } from './../../shared/response/response.response';
@@ -85,6 +87,29 @@ export class RegionController {
   @HttpCode(HttpStatus.OK)
   updateRegionHandler(@Body() body: UpdateRegionDTO): Promise<IDBResponse> {
     return this.regionService.updateRegion(body.region_id, body.title);
+  }
+  /**
+   * Delete region
+   * @param   {number} region_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Region')
+  @ApiBody({ type: DeleteRegionDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete region',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('region')
+  @HttpCode(HttpStatus.OK)
+  deleteRegionHandler(@Body() body: DeleteRegionDTO): Promise<IDBResponse> {
+    return this.regionService.deleteRegion(body.region_id);
   }
   /**
    * Get regions

@@ -2,8 +2,9 @@ import {
   Inject,
   Controller,
   Post,
-  Get,
   Put,
+  Delete,
+  Get,
   Body,
   Query,
   HttpStatus,
@@ -23,6 +24,7 @@ import { IResponseUser } from './../../interfaces/user.response.interface';
 import { IResponseUsers } from './../../interfaces/users.response.interface';
 import { SetUserDTO } from './../../shared/dto/set.user.dto';
 import { UpdateUserDTO } from './../../shared/dto/update.user.dto';
+import { DeleteUserDTO } from './../../shared/dto/delete.user.dto';
 import { GetUserDTO } from './../../shared/dto/get.user.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -105,6 +107,31 @@ export class UserController {
       body.email,
       body.address,
       body.city_id
+    );
+  }
+  /**
+   * Delete user
+   * @param   {uuid} user_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('User')
+  @ApiBody({ type: DeleteUserDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete user',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('user')
+  @HttpCode(HttpStatus.OK)
+  deleteUserHandler(@Body() body: DeleteUserDTO): Promise<IDBResponse> {
+    return this.userService.deleteUser(
+      body.user_id
     );
   }
   /**

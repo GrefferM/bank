@@ -111,6 +111,30 @@ export class OperationService {
     }
   }
   /**
+   * Delete operation
+   * @param   {uuid} operation_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async deleteOperation(
+    operation_id: string
+  ): Promise<IDBResponse> {
+    try {
+      return this.operationRepository
+        .delete({ id: operation_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get operations
    * @returns {Promise<IResponseOperations>}
    */

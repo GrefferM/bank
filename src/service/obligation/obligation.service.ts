@@ -127,6 +127,30 @@ export class ObligationService {
     }
   }
   /**
+   * Delete obligation
+   * @param   {uuid} obligation_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async deleteObligation(
+    obligation_id: string,
+  ): Promise<IDBResponse> {
+    try {
+      return this.obligationRepository
+        .delete({ id: obligation_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get obligations
    * @returns {Promise<IResponseObligations>}
    */

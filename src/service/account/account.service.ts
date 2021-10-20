@@ -110,6 +110,28 @@ export class AccountService {
     }
   }
   /**
+   * Delete account
+   * @param   {uuid}   account_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async deleteAccount(account_id: string): Promise<IDBResponse> {
+    try {
+      return this.accountRepository
+        .delete({ id: account_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get accounts
    * @returns {Promise<IResponseAccounts>}
    */

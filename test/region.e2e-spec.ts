@@ -17,6 +17,7 @@ describe('RegionController', () => {
   const regionService = {
     setRegion: () => Promise.resolve(responseDB),
     updateRegion: () => Promise.resolve(responseDB),
+    deleteRegion: () => Promise.resolve(responseDB),
     getRegions: () => Promise.resolve(responseGetRegions),
     getRegionById: () => Promise.resolve(responseGetRegion)
   };
@@ -105,6 +106,28 @@ describe('RegionController', () => {
     it('execute for update region (failed)', async () => {
       return request(app.getHttpServer())
         .put('/api/region')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('DELETE /region', () => {
+    it('execute for delete region', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/region')
+        .send({
+          region_id: 1
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for delete region (failed)', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/region')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

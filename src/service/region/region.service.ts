@@ -68,6 +68,28 @@ export class RegionService {
     }
   }
   /**
+   * Delete region
+   * @param   {number} region_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async deleteRegion(region_id: number): Promise<IDBResponse> {
+    try {
+      return this.regionRepository
+        .delete({ id: region_id })
+        .then(() => {
+          return {
+            success: true,
+            message: 'delete'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get regions
    * @returns {Promise<IResponseRegions>}
    */

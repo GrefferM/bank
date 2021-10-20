@@ -17,6 +17,7 @@ describe('CityController', () => {
   const cityService = {
     setCity: () => Promise.resolve(responseDB),
     updateCity: () => Promise.resolve(responseDB),
+    deleteCity: () => Promise.resolve(responseDB),
     getCities: () => Promise.resolve(responseGetCities),
     getCityById: () => Promise.resolve(responseGetCity)
   };
@@ -109,6 +110,28 @@ describe('CityController', () => {
     it('execute for update city (failed)', async () => {
       return request(app.getHttpServer())
         .put('/api/city')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('DELETE /city', () => {
+    it('execute for delete city', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/city')
+        .send({
+          city_id: 1
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for delete city (failed)', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/city')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

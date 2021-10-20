@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Put,
+  Delete,
   Get,
   Body,
   Query,
@@ -23,6 +24,7 @@ import { IResponseOperationType } from './../../interfaces/operation.type.respon
 import { IResponseOperationTypes } from './../../interfaces/operation.types.response.interface';
 import { SetOperationTypeDTO } from './../../shared/dto/set.operation.type.dto';
 import { UpdateOperationTypeDTO } from './../../shared/dto/update.operation.type.dto';
+import { DeleteOperationTypeDTO } from './../../shared/dto/delete.operation.type.dto';
 import { GetOperationTypeDTO } from './../../shared/dto/get.operation.type.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -93,6 +95,31 @@ export class OperationTypeController {
       body.type_id,
       body.title,
       body.commission
+    );
+  }
+  /**
+   * Delete operation type
+   * @param   {number} type_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('OperationType')
+  @ApiBody({ type: DeleteOperationTypeDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull delete operation type',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Delete('operation-type')
+  @HttpCode(HttpStatus.OK)
+  deleteOperationTypeHandler(@Body() body: DeleteOperationTypeDTO): Promise<IDBResponse> {
+    return this.operationTypeService.deleteOperationType(
+      body.type_id
     );
   }
   /**

@@ -20,6 +20,7 @@ describe('BalanceController', () => {
   const balanceService = {
     setBalance: () => Promise.resolve(responseDB),
     updateBalance: () => Promise.resolve(responseDB),
+    deleteBalance: () => Promise.resolve(responseDB),
     getBalances: () => Promise.resolve(responseGetBalances),
     getBalanceById: () => Promise.resolve(responseGetBalance)
   };
@@ -107,9 +108,31 @@ describe('BalanceController', () => {
         });
     });
 
-    it('execute for set balance (failed)', async () => {
+    it('execute for update balance (failed)', async () => {
       return request(app.getHttpServer())
         .put('/api/balance')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('DELETE /balance', () => {
+    it('execute for delete balance', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/balance')
+        .send({
+          balance_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003'
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for delete balance (failed)', async () => {
+      return request(app.getHttpServer())
+        .delete('/api/balance')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });
