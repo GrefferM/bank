@@ -21,6 +21,7 @@ describe('ObligationController', () => {
   let app: INestApplication;
   const obligationService = {
     setObligation: () => Promise.resolve(responseDB),
+    updateObligation: () => Promise.resolve(responseDB),
     getObligations: () => Promise.resolve(responseGetObligations),
     getObligationById: () => Promise.resolve(responseGetObligation)
   };
@@ -88,7 +89,7 @@ describe('ObligationController', () => {
           debt: true,
         })
         .then((res: { status: number; body: IDBResponse }) => {
-          expect(res.status).toBe(200);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual(responseDB);
         });
     });
@@ -96,6 +97,35 @@ describe('ObligationController', () => {
     it('execute for set obligation (failed)', async () => {
       return request(app.getHttpServer())
         .post('/api/obligation')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('UPDATE /obligation', () => {
+    it('execute for update obligation', async () => {
+      return request(app.getHttpServer())
+        .put('/api/obligation')
+        .send({
+          obligation_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          user_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          employee_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          percent: 1,
+          insurance: 1,
+          current_amount: 1,
+          total_amount: 1,
+          debt: true,
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for update obligation (failed)', async () => {
+      return request(app.getHttpServer())
+        .put('/api/obligation')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

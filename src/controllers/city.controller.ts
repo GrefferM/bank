@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Get,
+  Put,
   Body,
   Query,
   HttpStatus,
@@ -21,6 +22,7 @@ import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseCity } from './../../interfaces/city.response.interface';
 import { IResponseCities } from './../../interfaces/cities.response.interface';
 import { SetCityDTO } from './../../shared/dto/set.city.dto';
+import { UpdateCityDTO } from './../../shared/dto/update.city.dto';
 import { GetCityDTO } from './../../shared/dto/get.city.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -46,7 +48,7 @@ export class CityController {
   @ApiTags('City')
   @ApiBody({ type: SetCityDTO })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Succesfull save city',
     type: Response
   })
@@ -57,9 +59,34 @@ export class CityController {
   })
   @UseFilters(AllExceptionsFilter)
   @Post('city')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   setCityHandler(@Body() body: SetCityDTO): Promise<IDBResponse> {
     return this.cityService.setCity(body.title, body.region_id);
+  }
+  /**
+   * Update city
+   * @param   {number} city_id
+   * @param   {string} title
+   * @param   {number} region_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('City')
+  @ApiBody({ type: UpdateCityDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull update city',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Put('city')
+  @HttpCode(HttpStatus.OK)
+  updateCityHandler(@Body() body: UpdateCityDTO): Promise<IDBResponse> {
+    return this.cityService.updateCity(body.city_id, body.title, body.region_id);
   }
   /**
    * Get cities

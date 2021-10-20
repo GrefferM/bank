@@ -45,6 +45,34 @@ export class AccountTypeService {
     }
   }
   /**
+   * Update account type
+   * @param   {number}  type_id
+   * @param   {string}  title
+   * @param   {boolean} debit
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateAccountType(type_id: number, title: string, debit: boolean): Promise<IDBResponse> {
+    try {
+      return this.accountTypeRepository
+        .save({
+          id: type_id,
+          title,
+          debit
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get account types
    * @returns {Promise<IResponseAccountTypes>}
    */

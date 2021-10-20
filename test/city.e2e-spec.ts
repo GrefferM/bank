@@ -16,6 +16,7 @@ describe('CityController', () => {
   let app: INestApplication;
   const cityService = {
     setCity: () => Promise.resolve(responseDB),
+    updateCity: () => Promise.resolve(responseDB),
     getCities: () => Promise.resolve(responseGetCities),
     getCityById: () => Promise.resolve(responseGetCity)
   };
@@ -76,7 +77,7 @@ describe('CityController', () => {
           region_id: 1
         })
         .then((res: { status: number; body: IDBResponse }) => {
-          expect(res.status).toBe(200);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual(responseDB);
         });
     });
@@ -84,6 +85,30 @@ describe('CityController', () => {
     it('execute for set city (failed)', async () => {
       return request(app.getHttpServer())
         .post('/api/city')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('UPDATE /city', () => {
+    it('execute for update city', async () => {
+      return request(app.getHttpServer())
+        .put('/api/city')
+        .send({
+          city_id: 1,
+          title: 'TEST_CITY',
+          region_id: 1
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for update city (failed)', async () => {
+      return request(app.getHttpServer())
+        .put('/api/city')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

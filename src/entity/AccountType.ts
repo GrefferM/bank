@@ -1,7 +1,7 @@
-import { 
-  Entity, 
-  PrimaryGeneratedColumn, 
-  OneToMany, 
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
   Column
 } from "typeorm";
 import { Account } from "./Account";
@@ -11,10 +11,12 @@ export class AccountType {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   title: string;
 
-  @Column()
+  @Column({
+    nullable: false
+  })
   debit: boolean;
 
   @OneToMany((type) => Account, (account) => account.type)

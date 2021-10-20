@@ -2,6 +2,7 @@ import {
   Inject,
   Controller,
   Post,
+  Put,
   Get,
   Body,
   Query,
@@ -21,6 +22,7 @@ import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseOperationType } from './../../interfaces/operation.type.response.interface';
 import { IResponseOperationTypes } from './../../interfaces/operation.types.response.interface';
 import { SetOperationTypeDTO } from './../../shared/dto/set.operation.type.dto';
+import { UpdateOperationTypeDTO } from './../../shared/dto/update.operation.type.dto';
 import { GetOperationTypeDTO } from './../../shared/dto/get.operation.type.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -46,7 +48,7 @@ export class OperationTypeController {
   @ApiTags('OperationType')
   @ApiBody({ type: SetOperationTypeDTO })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Succesfull save operation type',
     type: Response
   })
@@ -57,9 +59,38 @@ export class OperationTypeController {
   })
   @UseFilters(AllExceptionsFilter)
   @Post('operation-type')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   setOperationTypeHandler(@Body() body: SetOperationTypeDTO): Promise<IDBResponse> {
     return this.operationTypeService.setOperationType(
+      body.title,
+      body.commission
+    );
+  }
+  /**
+   * Update operation type
+   * @param   {number} type_id
+   * @param   {string} title
+   * @param   {number} commission
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('OperationType')
+  @ApiBody({ type: UpdateOperationTypeDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull update operation type',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Put('operation-type')
+  @HttpCode(HttpStatus.OK)
+  updateOperationTypeHandler(@Body() body: UpdateOperationTypeDTO): Promise<IDBResponse> {
+    return this.operationTypeService.updateOperationType(
+      body.type_id,
       body.title,
       body.commission
     );

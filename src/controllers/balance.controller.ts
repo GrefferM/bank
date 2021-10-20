@@ -2,6 +2,7 @@ import {
   Inject,
   Controller,
   Post,
+  Put,
   Get,
   Body,
   Query,
@@ -21,6 +22,7 @@ import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseBalance } from './../../interfaces/balance.response.interface';
 import { IResponseBalances } from './../../interfaces/balances.response.interface';
 import { SetBalanceDTO } from './../../shared/dto/set.balance.dto';
+import { UpdateBalanceDTO } from './../../shared/dto/update.balance.dto';
 import { GetBalanceDTO } from './../../shared/dto/get.balance.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -46,7 +48,7 @@ export class BalanceController {
   @ApiTags('Balance')
   @ApiBody({ type: SetBalanceDTO })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Succesfull save balance',
     type: Response
   })
@@ -57,9 +59,34 @@ export class BalanceController {
   })
   @UseFilters(AllExceptionsFilter)
   @Post('balance')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   setBalanceHandler(@Body() body: SetBalanceDTO): Promise<IDBResponse> {
     return this.balanceService.setBalance(body.amount, body.debt);
+  }
+  /**
+   * Update balance
+   * @param   {uuid}    balance_id
+   * @param   {number}  amount
+   * @param   {boolean} debt
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Balance')
+  @ApiBody({ type: UpdateBalanceDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull update balance',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Put('balance')
+  @HttpCode(HttpStatus.OK)
+  updateBalanceHandler(@Body() body: UpdateBalanceDTO): Promise<IDBResponse> {
+    return this.balanceService.updateBalance(body.balance_id, body.amount, body.debt);
   }
   /**
    * Get balances

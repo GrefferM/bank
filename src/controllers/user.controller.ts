@@ -3,6 +3,7 @@ import {
   Controller,
   Post,
   Get,
+  Put,
   Body,
   Query,
   HttpStatus,
@@ -21,6 +22,7 @@ import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseUser } from './../../interfaces/user.response.interface';
 import { IResponseUsers } from './../../interfaces/users.response.interface';
 import { SetUserDTO } from './../../shared/dto/set.user.dto';
+import { UpdateUserDTO } from './../../shared/dto/update.user.dto';
 import { GetUserDTO } from './../../shared/dto/get.user.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -49,7 +51,7 @@ export class UserController {
   @ApiTags('User')
   @ApiBody({ type: SetUserDTO })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Succesfull save user',
     type: Response
   })
@@ -60,9 +62,44 @@ export class UserController {
   })
   @UseFilters(AllExceptionsFilter)
   @Post('user')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   setUserHandler(@Body() body: SetUserDTO): Promise<IDBResponse> {
     return this.userService.setUser(
+      body.name,
+      body.phone,
+      body.email,
+      body.address,
+      body.city_id
+    );
+  }
+  /**
+   * Update user
+   * @param   {uuid}   user_id
+   * @param   {string} name
+   * @param   {string} phone
+   * @param   {string} email
+   * @param   {string} address
+   * @param   {number} city_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('User')
+  @ApiBody({ type: UpdateUserDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull update user',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Put('user')
+  @HttpCode(HttpStatus.OK)
+  updateUserHandler(@Body() body: UpdateUserDTO): Promise<IDBResponse> {
+    return this.userService.updateUser(
+      body.user_id,
       body.name,
       body.phone,
       body.email,

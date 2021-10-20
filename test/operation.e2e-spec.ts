@@ -21,6 +21,7 @@ describe('OperationController', () => {
   let app: INestApplication;
   const operationService = {
     setOperation: () => Promise.resolve(responseDB),
+    updateOperation: () => Promise.resolve(responseDB),
     getOperations: () => Promise.resolve(responseGetOperations),
     getOperationById: () => Promise.resolve(responseGetOperation)
   };
@@ -81,10 +82,11 @@ describe('OperationController', () => {
         .send({
           payer_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
           recipient_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
-          type_id: 1
+          type_id: 1,
+          amount: 1
         })
         .then((res: { status: number; body: IDBResponse }) => {
-          expect(res.status).toBe(200);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual(responseDB);
         });
     });
@@ -92,6 +94,32 @@ describe('OperationController', () => {
     it('execute for set operation (failed)', async () => {
       return request(app.getHttpServer())
         .post('/api/operation')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('UPDATE /operation', () => {
+    it('execute for update operation', async () => {
+      return request(app.getHttpServer())
+        .put('/api/operation')
+        .send({
+          operation_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          payer_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          recipient_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          type_id: 1,
+          amount: 1
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for update operation (failed)', async () => {
+      return request(app.getHttpServer())
+        .put('/api/operation')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

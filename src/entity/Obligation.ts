@@ -25,25 +25,39 @@ export class Obligation {
   @JoinColumn()
   employee: Employee;
 
-  @Column('float4')
+  @Column('float4', {
+    nullable: false
+  })
   percent: number;
 
-  @Column('float4')
+  @Column('float4', {
+    nullable: false
+  })
   insurance: number;
 
-  @Column('money')
+  @Column('money', {
+    nullable: false
+  })
   current_amount: number;
 
-  @Column('money')
+  @Column('money', {
+    nullable: false
+  })
   total_amount: number;
 
-  @Column()
+  @Column({
+    nullable: false
+  })
   finished: boolean;
 
-  @Column()
+  @Column({
+    nullable: false
+  })
   debt: boolean;
 
-  @Column('timestamp')
+  @Column('timestamp', {
+    nullable: false
+  })
   next_payment: Date;
 
   @Column('timestamp', {
@@ -51,6 +65,8 @@ export class Obligation {
   })
   created_at: Date;
 
-  @Column('timestamp')
+  @Column('timestamp', {
+    nullable: false
+  })
   finished_at: Date;
 }

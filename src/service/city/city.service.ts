@@ -50,6 +50,36 @@ export class CityService {
     }
   }
   /**
+   * Update city
+   * @param   {number} city_id
+   * @param   {string} title
+   * @param   {number} region
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateCity(city_id: number, title: string, region_id: number): Promise<IDBResponse> {
+    try {
+      const region = await this.regionRepository.findOne({ id: region_id })
+
+      return this.cityRepository
+        .save({
+          id: city_id,
+          title,
+          region
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get cities
    * @returns {Promise<IResponseCities>}
    */

@@ -2,6 +2,7 @@ import {
   Inject,
   Controller,
   Post,
+  Put,
   Get,
   Body,
   Query,
@@ -21,6 +22,7 @@ import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseOperation } from './../../interfaces/operation.response.interface';
 import { IResponseOperations } from './../../interfaces/operations.response.interface';
 import { SetOperationDTO } from './../../shared/dto/set.operation.dto';
+import { UpdateOperationDTO } from './../../shared/dto/update.operation.dto';
 import { GetOperationDTO } from './../../shared/dto/get.operation.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -47,7 +49,7 @@ export class OperationController {
   @ApiTags('Operation')
   @ApiBody({ type: SetOperationDTO })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Succesfull save operation',
     type: Response
   })
@@ -58,12 +60,46 @@ export class OperationController {
   })
   @UseFilters(AllExceptionsFilter)
   @Post('operation')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   setOperationHandler(@Body() body: SetOperationDTO): Promise<IDBResponse> {
     return this.operationService.setOperation(
       body.payer_id,
       body.recipient_id,
-      body.type_id
+      body.type_id,
+      body.amount
+    );
+  }
+  /**
+   * Update operation
+   * @param   {uuid}   operation_id
+   * @param   {uuid}   payer_id
+   * @param   {uuid}   recipient_id
+   * @param   {number} type_id
+   * @param   {number} amount
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Operation')
+  @ApiBody({ type: UpdateOperationDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull update operation',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Put('operation')
+  @HttpCode(HttpStatus.OK)
+  updateOperationHandler(@Body() body: UpdateOperationDTO): Promise<IDBResponse> {
+    return this.operationService.updateOperation(
+      body.operation_id,
+      body.payer_id,
+      body.recipient_id,
+      body.type_id,
+      body.amount
     );
   }
   /**

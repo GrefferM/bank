@@ -22,6 +22,7 @@ describe('AccountController', () => {
   let app: INestApplication;
   const accountService = {
     setAccount: () => Promise.resolve(responseDB),
+    updateAccount: () => Promise.resolve(responseDB),
     getAccounts: () => Promise.resolve(responseGetAccounts),
     getAccountById: () => Promise.resolve(responseGetAccount)
   };
@@ -87,7 +88,7 @@ describe('AccountController', () => {
           employee_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003'
         })
         .then((res: { status: number; body: IDBResponse }) => {
-          expect(res.status).toBe(200);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual(responseDB);
         });
     });
@@ -95,6 +96,31 @@ describe('AccountController', () => {
     it('execute for set account (failed)', async () => {
       return request(app.getHttpServer())
         .post('/api/account')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('UPDATE /account', () => {
+    it('execute for update account', async () => {
+      return request(app.getHttpServer())
+        .put('/api/account')
+        .send({
+          account_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          type_id: 1,
+          user_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          employee_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003'
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for update account (failed)', async () => {
+      return request(app.getHttpServer())
+        .put('/api/account')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

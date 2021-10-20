@@ -1,32 +1,36 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsUUID,
   IsNumber,
-  IsPositive
+  IsString,
+  IsPositive,
+  Length
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class SetAccountDTO {
+export class UpdateCityDTO {
   @ApiProperty({
     type: Number,
     required: true
   })
-  @Transform(({ value: type_id }) => parseInt(type_id))
+  @Transform(({ value: city_id }) => parseInt(city_id))
   @IsPositive()
   @IsNumber()
-  type_id: number;
+  city_id: number;
 
   @ApiProperty({
     type: String,
     required: true
   })
-  @IsUUID()
-  user_id: string;
+  @Length(4, 64)
+  @IsString()
+  title: string;
 
   @ApiProperty({
-    type: String,
+    type: Number,
     required: true
   })
-  @IsUUID()
-  employee_id: string;
+  @Transform(({ value: region_id }) => parseInt(region_id))
+  @IsPositive()
+  @IsNumber()
+  region_id: number;
 }

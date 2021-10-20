@@ -16,6 +16,7 @@ describe('EmployeController', () => {
   let app: INestApplication;
   const employeService = {
     setEmployee: () => Promise.resolve(responseDB),
+    updateEmployee: () => Promise.resolve(responseDB),
     getEmployes: () => Promise.resolve(responseGetEmployes),
     getEmployeeById: () => Promise.resolve(responseGetEmployee)
   };
@@ -79,7 +80,7 @@ describe('EmployeController', () => {
           city_id: 1
         })
         .then((res: { status: number; body: IDBResponse }) => {
-          expect(res.status).toBe(200);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual(responseDB);
         });
     });
@@ -87,6 +88,33 @@ describe('EmployeController', () => {
     it('execute for set employe (failed)', async () => {
       return request(app.getHttpServer())
         .post('/api/employee')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('UPDATE /employe', () => {
+    it('execute for update employe', async () => {
+      return request(app.getHttpServer())
+        .put('/api/employee')
+        .send({
+          employee_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          name: 'TEST_FIO',
+          phone: '380977777777',
+          email: 'test@test.com',
+          address: 'street 21',
+          city_id: 1
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for update employe (failed)', async () => {
+      return request(app.getHttpServer())
+        .put('/api/employee')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

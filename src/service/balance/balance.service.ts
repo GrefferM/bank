@@ -19,7 +19,7 @@ export class BalanceService {
     private balanceRepository: Repository<Balance>,
   ) { }
   /**
-   * Set balances
+   * Set balance
    * @param   {number}  amount
    * @param   {boolean} debt
    * @returns {Promise<IDBResponse>}
@@ -40,6 +40,38 @@ export class BalanceService {
           return {
             success: true,
             message: 'success'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
+   * Update balance
+   * @param   {uuid}    balance_id
+   * @param   {number}  amount
+   * @param   {boolean} debt
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateBalance(
+    balance_id: string,
+    amount: number,
+    debt: boolean
+  ): Promise<IDBResponse> {
+    try {
+      return this.balanceRepository
+        .save({
+          id: balance_id,
+          amount,
+          debt
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
           }
         })
     } catch (err) {

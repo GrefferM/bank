@@ -2,6 +2,7 @@ import {
   Inject,
   Controller,
   Post,
+  Put,
   Get,
   Body,
   Query,
@@ -21,6 +22,7 @@ import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseAccount } from './../../interfaces/account.response.interface';
 import { IResponseAccounts } from './../../interfaces/accounts.response.interface';
 import { SetAccountDTO } from './../../shared/dto/set.account.dto';
+import { UpdateAccountDTO } from './../../shared/dto/update.account.dto';
 import { GetAccountDTO } from './../../shared/dto/get.account.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -47,7 +49,7 @@ export class AccountController {
   @ApiTags('Account')
   @ApiBody({ type: SetAccountDTO })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Succesfull save account',
     type: Response
   })
@@ -58,9 +60,40 @@ export class AccountController {
   })
   @UseFilters(AllExceptionsFilter)
   @Post('account')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   setAccountHandler(@Body() body: SetAccountDTO): Promise<IDBResponse> {
     return this.accountService.setAccount(
+      body.type_id,
+      body.user_id,
+      body.employee_id
+    );
+  }
+  /**
+   * Update account
+   * @param   {uuid}   account_id
+   * @param   {number} type_id
+   * @param   {uuid}   user_id
+   * @param   {uuid}   employee_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Account')
+  @ApiBody({ type: UpdateAccountDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull update account',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Put('account')
+  @HttpCode(HttpStatus.OK)
+  updateAccountHandler(@Body() body: UpdateAccountDTO): Promise<IDBResponse> {
+    return this.accountService.updateAccount(
+      body.account_id,
       body.type_id,
       body.user_id,
       body.employee_id

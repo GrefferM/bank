@@ -42,6 +42,32 @@ export class RegionService {
     }
   }
   /**
+   * Update region
+   * @param   {number} region_id
+   * @param   {string} title
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateRegion(region_id: number, title: string): Promise<IDBResponse> {
+    try {
+      return this.regionRepository
+        .save({
+          id: region_id,
+          title
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get regions
    * @returns {Promise<IResponseRegions>}
    */

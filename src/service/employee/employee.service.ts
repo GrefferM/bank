@@ -62,6 +62,49 @@ export class EmployeeService {
     }
   }
   /**
+   * Update employee
+   * @param   {uuid}   employee_id
+   * @param   {string} name
+   * @param   {string} phone
+   * @param   {string} email
+   * @param   {string} address
+   * @param   {number} city_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateEmployee(
+    employee_id: string,
+    name: string,
+    phone: string,
+    email: string,
+    address: string,
+    city_id: number
+  ): Promise<IDBResponse> {
+    try {
+      const city = await this.cityRepository.findOne({ id: city_id })
+
+      return this.employeeRepository
+        .save({
+          id: employee_id,
+          name,
+          phone,
+          email,
+          address,
+          city
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get employes
    * @returns {Promise<IResponseEmployes>}
    */

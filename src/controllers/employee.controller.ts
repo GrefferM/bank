@@ -2,6 +2,7 @@ import {
   Inject,
   Controller,
   Post,
+  Put,
   Get,
   Body,
   Query,
@@ -21,6 +22,7 @@ import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseEmployee } from './../../interfaces/employee.response.interface';
 import { IResponseEmployes } from './../../interfaces/employes.response.interface';
 import { SetEmployeeDTO } from './../../shared/dto/set.employee.dto';
+import { UpdateEmployeeDTO } from './../../shared/dto/update.employee.dto';
 import { GetEmployeeDTO } from './../../shared/dto/get.employee.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -49,7 +51,7 @@ export class EmployeeController {
   @ApiTags('Employee')
   @ApiBody({ type: SetEmployeeDTO })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Succesfull save employes',
     type: Response
   })
@@ -60,9 +62,44 @@ export class EmployeeController {
   })
   @UseFilters(AllExceptionsFilter)
   @Post('employee')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   setEmployeeHandler(@Body() body: SetEmployeeDTO): Promise<IDBResponse> {
     return this.employeeService.setEmployee(
+      body.name,
+      body.phone,
+      body.email,
+      body.address,
+      body.city_id
+    );
+  }
+  /**
+   * Update employee
+   * @param   {uuid}   employee_id
+   * @param   {string} name
+   * @param   {string} phone
+   * @param   {string} email
+   * @param   {string} address
+   * @param   {number} city_id
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Employee')
+  @ApiBody({ type: UpdateEmployeeDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull update employes',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Put('employee')
+  @HttpCode(HttpStatus.OK)
+  updateEmployeeHandler(@Body() body: UpdateEmployeeDTO): Promise<IDBResponse> {
+    return this.employeeService.updateEmployee(
+      body.employee_id,
       body.name,
       body.phone,
       body.email,

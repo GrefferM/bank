@@ -62,6 +62,49 @@ export class UserService {
     }
   }
   /**
+   * Update user
+   * @param   {uuid}   user_id
+   * @param   {string} name
+   * @param   {string} phone
+   * @param   {string} email
+   * @param   {string} address
+   * @param   {number} city
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateUser(
+    user_id: string,
+    name: string,
+    phone: string,
+    email: string,
+    address: string,
+    city_id: number
+  ): Promise<IDBResponse> {
+    try {
+      const city = await this.cityRepository.findOne({ id: city_id })
+
+      return this.userRepository
+        .save({
+          id: user_id,
+          name,
+          phone,
+          email,
+          address,
+          city
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get users
    * @returns {Promise<IResponseUsers>}
    */

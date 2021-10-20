@@ -6,7 +6,14 @@ import {
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class SetOperationDTO {
+export class UpdateOperationDTO {
+  @ApiProperty({
+    type: String,
+    required: true
+  })
+  @IsUUID()
+  operation_id: string;
+
   @ApiProperty({
     type: String,
     required: true

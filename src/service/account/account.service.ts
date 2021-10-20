@@ -7,11 +7,11 @@ import { Employee } from './../../entity/Employee';
 import { IDBResponse } from './../../../interfaces/db.response.interface';
 import { IResponseAccount } from './../../../interfaces/account.response.interface';
 import { IResponseAccounts } from './../../../interfaces/accounts.response.interface';
-import { 
-  ACCOUNT_REPOSITORY, 
-  ACCOUNT_TYPE_REPOSITORY, 
-  USER_REPOSITORY, 
-  EMPLOYEE_REPOSITORY 
+import {
+  ACCOUNT_REPOSITORY,
+  ACCOUNT_TYPE_REPOSITORY,
+  USER_REPOSITORY,
+  EMPLOYEE_REPOSITORY
 } from './../../constants';
 
 @Injectable()
@@ -36,8 +36,8 @@ export class AccountService {
   /**
    * Set account
    * @param   {number} type_id
-   * @param   {string} user_id
-   * @param   {string} employee_id
+   * @param   {uuid}   user_id
+   * @param   {uuid}   employee_id
    * @returns {Promise<IDBResponse>}
    */
   public async setAccount(
@@ -61,6 +61,45 @@ export class AccountService {
           return {
             success: true,
             message: 'success'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
+   * Update account
+   * @param   {uuid}   account_id
+   * @param   {number} type_id
+   * @param   {uuid}   user_id
+   * @param   {uuid}   employee_id
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateAccount(
+    account_id: string,
+    type_id: number,
+    user_id: string,
+    employee_id: string
+  ): Promise<IDBResponse> {
+    try {
+      const type = await this.accountTypeRepository.findOne({ id: type_id })
+      const user = await this.userRepository.findOne({ id: user_id })
+      const employee = await this.employeeRepository.findOne({ id: employee_id })
+
+      return this.accountRepository
+        .save({
+          id: account_id,
+          type,
+          user,
+          employee
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
           }
         })
     } catch (err) {

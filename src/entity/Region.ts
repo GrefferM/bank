@@ -2,7 +2,7 @@ import {
   Entity, 
   PrimaryGeneratedColumn, 
   Column, 
-  OneToMany 
+  OneToMany
 } from "typeorm";
 import { City } from './City';
 
@@ -11,7 +11,7 @@ export class Region {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   title: string;
 
   @OneToMany((type) => City, (cities) => cities.region)

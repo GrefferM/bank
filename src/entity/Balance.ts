@@ -5,9 +5,13 @@ export class Balance {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('money')
+  @Column('money', {
+    nullable: false
+  })
   amount: number;
 
-  @Column()
+  @Column({
+    nullable: false
+  })
   debt: boolean;
 }

@@ -33,7 +33,9 @@ export class Account {
   @JoinColumn()
   employee: Employee;
 
-  @Column('money')
+  @Column('money', {
+    nullable: false
+  })
   balance: number;
 
   @Column('timestamp', {

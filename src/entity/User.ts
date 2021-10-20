@@ -1,7 +1,7 @@
-import { 
-  Entity, 
-  PrimaryGeneratedColumn, 
-  ManyToOne, 
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
   Column,
   JoinColumn
 } from "typeorm";
@@ -12,16 +12,20 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({
+    nullable: false
+  })
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   phone: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({
+    nullable: false
+  })
   address: string;
 
   @ManyToOne(type => City, (city) => city.users, {

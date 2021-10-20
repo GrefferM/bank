@@ -2,6 +2,7 @@ import {
   Inject,
   Controller,
   Post,
+  Put,
   Get,
   Body,
   Query,
@@ -21,6 +22,7 @@ import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseObligation } from './../../interfaces/obligation.response.interface';
 import { IResponseObligations } from './../../interfaces/obligations.response.interface';
 import { SetObligationDTO } from './../../shared/dto/set.obligation.dto';
+import { UpdateObligationDTO } from './../../shared/dto/update.obligation.dto';
 import { GetObligationDTO } from './../../shared/dto/get.obligation.dto';
 import { Error } from '../../shared/response/error.response';
 import { Response } from '../../shared/response/response.response';
@@ -51,7 +53,7 @@ export class ObligationController {
   @ApiTags('Obligation')
   @ApiBody({ type: SetObligationDTO })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Succesfull save obligation',
     type: Response
   })
@@ -62,9 +64,48 @@ export class ObligationController {
   })
   @UseFilters(AllExceptionsFilter)
   @Post('obligation')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   setObligationHandler(@Body() body: SetObligationDTO): Promise<IDBResponse> {
     return this.obligationService.setObligation(
+      body.user_id,
+      body.employee_id,
+      body.percent,
+      body.insurance,
+      body.current_amount,
+      body.total_amount,
+      body.debt
+    );
+  }
+  /**
+   * Update obligation
+   * @param   {uuid}    obligation_id
+   * @param   {uuid}    user_id
+   * @param   {uuid}    employee_id
+   * @param   {number}  percent
+   * @param   {number}  insurance
+   * @param   {number}  current_amount
+   * @param   {number}  total_amount
+   * @param   {boolean} debt
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Obligation')
+  @ApiBody({ type: UpdateObligationDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull update obligation',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Put('obligation')
+  @HttpCode(HttpStatus.OK)
+  updateObligationHandler(@Body() body: UpdateObligationDTO): Promise<IDBResponse> {
+    return this.obligationService.updateObligation(
+      body.obligation_id,
       body.user_id,
       body.employee_id,
       body.percent,

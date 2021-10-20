@@ -30,15 +30,17 @@ export class OperationService {
   ) { }
   /**
    * Set operation
-   * @param   {string}  payer_id
-   * @param   {string}  recipient_id
+   * @param   {uuid}    payer_id
+   * @param   {uuid}    recipient_id
    * @param   {number}  type_id
+   * @param   {number}  amount
    * @returns {Promise<IDBResponse>}
    */
   public async setOperation(
     payer_id: string,
     recipient_id: string,
-    type_id: number
+    type_id: number,
+    amount: number
   ): Promise<IDBResponse> {
     try {
       const payer = await this.userRepository.findOne({ id: payer_id })
@@ -47,7 +49,8 @@ export class OperationService {
       const operation = this.operationRepository.create({
         payer,
         recipient,
-        type
+        type,
+        amount
       })
 
       return this.operationRepository
@@ -56,6 +59,48 @@ export class OperationService {
           return {
             success: true,
             message: 'success'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
+   * Update operation
+   * @param   {uuid}    operation_id
+   * @param   {uuid}    payer_id
+   * @param   {uuid}    recipient_id
+   * @param   {number}  type_id
+   * @param   {number}  amount
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateOperation(
+    operation_id: string,
+    payer_id: string,
+    recipient_id: string,
+    type_id: number,
+    amount: number
+  ): Promise<IDBResponse> {
+    try {
+      const payer = await this.userRepository.findOne({ id: payer_id })
+      const recipient = await this.userRepository.findOne({ id: recipient_id })
+      const type = await this.operationTypeRepository.findOne({ id: type_id })
+
+      return this.operationRepository
+        .save({
+          id: operation_id,
+          payer,
+          recipient,
+          type,
+          amount
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
           }
         })
     } catch (err) {

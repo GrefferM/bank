@@ -16,6 +16,7 @@ describe('RegionController', () => {
   let app: INestApplication;
   const regionService = {
     setRegion: () => Promise.resolve(responseDB),
+    updateRegion: () => Promise.resolve(responseDB),
     getRegions: () => Promise.resolve(responseGetRegions),
     getRegionById: () => Promise.resolve(responseGetRegion)
   };
@@ -73,7 +74,7 @@ describe('RegionController', () => {
           title: 'TEST'
         })
         .then((res: { status: number; body: IDBResponse }) => {
-          expect(res.status).toBe(200);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual(responseDB);
         });
     });
@@ -81,6 +82,29 @@ describe('RegionController', () => {
     it('execute for set region (failed)', async () => {
       return request(app.getHttpServer())
         .post('/api/region')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('UPDATE /region', () => {
+    it('execute for update region', async () => {
+      return request(app.getHttpServer())
+        .put('/api/region')
+        .send({
+          region_id: 1,
+          title: 'TEST'
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for update region (failed)', async () => {
+      return request(app.getHttpServer())
+        .put('/api/region')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

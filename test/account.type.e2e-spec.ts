@@ -19,6 +19,7 @@ describe('AccountTypeController', () => {
   let app: INestApplication;
   const accountService = {
     setAccountType: () => Promise.resolve(responseDB),
+    updateAccountType: () => Promise.resolve(responseDB),
     getAccountTypes: () => Promise.resolve(responseGetAccountTypes),
     getAccountTypeById: () => Promise.resolve(responseGetAccountType)
   };
@@ -77,7 +78,7 @@ describe('AccountTypeController', () => {
           debit: true
         })
         .then((res: { status: number; body: IDBResponse }) => {
-          expect(res.status).toBe(200);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual(responseDB);
         });
     });
@@ -85,6 +86,30 @@ describe('AccountTypeController', () => {
     it('execute for set account type (failed)', async () => {
       return request(app.getHttpServer())
         .post('/api/account-type')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('UPDATE /account-type', () => {
+    it('execute for update account type', async () => {
+      return request(app.getHttpServer())
+        .put('/api/account-type')
+        .send({
+          type_id: 1,
+          title: 'Test',
+          debit: true
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for update account type (failed)', async () => {
+      return request(app.getHttpServer())
+        .put('/api/account-type')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

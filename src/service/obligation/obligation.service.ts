@@ -30,8 +30,8 @@ export class ObligationService {
   ) { }
   /**
    * Set obligation
-   * @param   {string}  user_id
-   * @param   {string}  employee_id
+   * @param   {uuid}    user_id
+   * @param   {uuid}    employee_id
    * @param   {number}  percent
    * @param   {number}  insurance
    * @param   {number}  current_amount
@@ -67,6 +67,56 @@ export class ObligationService {
           return {
             success: true,
             message: 'success'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
+   * Update obligation
+   * @param   {uuid}    obligation_id
+   * @param   {uuid}    user_id
+   * @param   {uuid}    employee_id
+   * @param   {number}  percent
+   * @param   {number}  insurance
+   * @param   {number}  current_amount
+   * @param   {number}  total_amount
+   * @param   {boolean} debt
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateObligation(
+    obligation_id: string,
+    user_id: string,
+    employee_id: string,
+    percent: number,
+    insurance: number,
+    current_amount: number,
+    total_amount: number,
+    debt: boolean
+  ): Promise<IDBResponse> {
+    try {
+      const user = await this.userRepository.findOne({ id: user_id })
+      const employee = await this.employeeRepository.findOne({ id: employee_id })
+
+      return this.obligationRepository
+        .save({
+          id: obligation_id,
+          user,
+          employee,
+          percent,
+          insurance,
+          current_amount,
+          total_amount,
+          debt
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
           }
         })
     } catch (err) {

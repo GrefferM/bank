@@ -4,8 +4,8 @@ import * as request from 'supertest';
 import { BalanceController } from './../src/controllers/balance.controller';
 import { BalanceModule } from './../src/service/balance/balance.module';
 import { BalanceService } from './../src/service/balance/balance.service';
-import { 
-  DATABASE_CONNECTION, 
+import {
+  DATABASE_CONNECTION,
   BALANCE_REPOSITORY
 } from './../src/constants';
 import { IDBResponse } from './../interfaces/db.response.interface';
@@ -19,6 +19,7 @@ describe('BalanceController', () => {
   let app: INestApplication;
   const balanceService = {
     setBalance: () => Promise.resolve(responseDB),
+    updateBalance: () => Promise.resolve(responseDB),
     getBalances: () => Promise.resolve(responseGetBalances),
     getBalanceById: () => Promise.resolve(responseGetBalance)
   };
@@ -77,7 +78,7 @@ describe('BalanceController', () => {
           debt: true
         })
         .then((res: { status: number; body: IDBResponse }) => {
-          expect(res.status).toBe(200);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual(responseDB);
         });
     });
@@ -85,6 +86,30 @@ describe('BalanceController', () => {
     it('execute for set balance (failed)', async () => {
       return request(app.getHttpServer())
         .post('/api/balance')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('UPDATE /balance', () => {
+    it('execute for update balance', async () => {
+      return request(app.getHttpServer())
+        .put('/api/balance')
+        .send({
+          balance_id: '5dec5770-2d8c-11ec-8d3d-0242ac130003',
+          amount: 1,
+          debt: true
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for set balance (failed)', async () => {
+      return request(app.getHttpServer())
+        .put('/api/balance')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

@@ -19,6 +19,7 @@ describe('OperationTypeController', () => {
   let app: INestApplication;
   const operationTypeService = {
     setOperationType: () => Promise.resolve(responseDB),
+    updateOperationType: () => Promise.resolve(responseDB),
     getOperationTypes: () => Promise.resolve(responseGetOperationTypes),
     getOperationTypeById: () => Promise.resolve(responseGetOperationType)
   };
@@ -77,7 +78,7 @@ describe('OperationTypeController', () => {
           commission: 1
         })
         .then((res: { status: number; body: IDBResponse }) => {
-          expect(res.status).toBe(200);
+          expect(res.status).toBe(201);
           expect(res.body).toEqual(responseDB);
         });
     });
@@ -85,6 +86,30 @@ describe('OperationTypeController', () => {
     it('execute for set operation type (failed)', async () => {
       return request(app.getHttpServer())
         .post('/api/operation-type')
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(400);
+        });
+    });
+  });
+
+  describe('UPDATE /operation-type', () => {
+    it('execute for update operation type', async () => {
+      return request(app.getHttpServer())
+        .put('/api/operation-type')
+        .send({
+          type_id: 1,
+          title: 'Test',
+          commission: 1
+        })
+        .then((res: { status: number; body: IDBResponse }) => {
+          expect(res.status).toBe(200);
+          expect(res.body).toEqual(responseDB);
+        });
+    });
+
+    it('execute for update operation type (failed)', async () => {
+      return request(app.getHttpServer())
+        .put('/api/operation-type')
         .then((res: { status: number; body: IDBResponse }) => {
           expect(res.status).toBe(400);
         });

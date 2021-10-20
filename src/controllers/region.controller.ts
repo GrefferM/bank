@@ -2,6 +2,7 @@ import {
   Inject,
   Controller,
   Post,
+  Put,
   Get,
   Body,
   Query,
@@ -21,11 +22,12 @@ import { IDBResponse } from './../../interfaces/db.response.interface';
 import { IResponseRegion } from './../../interfaces/region.response.interface';
 import { IResponseRegions } from './../../interfaces/regions.response.interface';
 import { SetRegionDTO } from './../../shared/dto/set.region.dto';
+import { UpdateRegionDTO } from './../../shared/dto/update.region.dto';
 import { GetRegionDTO } from './../../shared/dto/get.region.dto';
-import { Error } from '../../shared/response/error.response';
-import { Response } from '../../shared/response/response.response';
-import { GetRegionsResponse } from '../../shared/response/get.regions.response';
-import { GetRegionResponse } from '../../shared/response/get.region.response';
+import { Error } from './../../shared/response/error.response';
+import { Response } from './../../shared/response/response.response';
+import { GetRegionsResponse } from './../../shared/response/get.regions.response';
+import { GetRegionResponse } from './../../shared/response/get.region.response';
 
 @Controller('api')
 export class RegionController {
@@ -38,14 +40,14 @@ export class RegionController {
     private regionService: RegionService
   ) { }
   /**
-   * Set city
+   * Set region
    * @param   {string} title
    * @returns {Promise<IDBResponse>}
    */
   @ApiTags('Region')
   @ApiBody({ type: SetRegionDTO })
   @ApiResponse({
-    status: HttpStatus.OK,
+    status: HttpStatus.CREATED,
     description: 'Succesfull save region',
     type: Response
   })
@@ -56,9 +58,33 @@ export class RegionController {
   })
   @UseFilters(AllExceptionsFilter)
   @Post('region')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   setRegionHandler(@Body() body: SetRegionDTO): Promise<IDBResponse> {
     return this.regionService.setRegion(body.title);
+  }
+  /**
+   * Update region
+   * @param   {number} region_id
+   * @param   {string} title
+   * @returns {Promise<IDBResponse>}
+   */
+  @ApiTags('Region')
+  @ApiBody({ type: UpdateRegionDTO })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Succesfull update region',
+    type: Response
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Error',
+    type: Error
+  })
+  @UseFilters(AllExceptionsFilter)
+  @Put('region')
+  @HttpCode(HttpStatus.OK)
+  updateRegionHandler(@Body() body: UpdateRegionDTO): Promise<IDBResponse> {
+    return this.regionService.updateRegion(body.region_id, body.title);
   }
   /**
    * Get regions

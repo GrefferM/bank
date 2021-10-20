@@ -11,10 +11,12 @@ export class OperationType {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   title: string;
 
-  @Column('float4')
+  @Column('float4', {
+    nullable: false
+  })
   commission: number;
 
   @OneToMany((type) => Operation, (operation) => operation.type)

@@ -8,56 +8,22 @@ import {
 } from 'class-validator';
 import { Transform } from 'class-transformer';
 
-export class SetObligationDTO {
+export class UpdateBalanceDTO {
   @ApiProperty({
     type: String,
     required: true
   })
   @IsUUID()
-  user_id: string;
-
-  @ApiProperty({
-    type: String,
-    required: true
-  })
-  @IsUUID()
-  employee_id: string;
+  balance_id: string;
 
   @ApiProperty({
     type: Number,
     required: true
   })
-  @Transform(({ value: percent }) => parseInt(percent))
+  @Transform(({ value: amount }) => parseInt(amount))
   @IsPositive()
   @IsNumber()
-  percent: number;
-
-  @ApiProperty({
-    type: Number,
-    required: true
-  })
-  @Transform(({ value: insurance }) => parseInt(insurance))
-  @IsPositive()
-  @IsNumber()
-  insurance: number;
-
-  @ApiProperty({
-    type: Number,
-    required: true
-  })
-  @Transform(({ value: current_amount }) => parseInt(current_amount))
-  @IsPositive()
-  @IsNumber()
-  current_amount: number;
-
-  @ApiProperty({
-    type: Number,
-    required: true
-  })
-  @Transform(({ value: total_amount }) => parseInt(total_amount))
-  @IsPositive()
-  @IsNumber()
-  total_amount: number;
+  amount: number;
 
   @ApiProperty({
     type: Boolean,

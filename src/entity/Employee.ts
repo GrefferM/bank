@@ -12,16 +12,20 @@ export class Employee {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({
+    nullable: false
+  })
   name: string;
 
-  @Column()
+  @Column({ unique: true })
   phone: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({
+    nullable: false
+  })
   address: string;
 
   @OneToOne(type => City, {

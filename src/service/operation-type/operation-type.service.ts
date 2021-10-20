@@ -50,6 +50,38 @@ export class OperationTypeService {
     }
   }
   /**
+   * Update operation type
+   * @param   {number}  type_id
+   * @param   {string}  title
+   * @param   {number}  commission
+   * @returns {Promise<IDBResponse>}
+   */
+  public async updateOperationType(
+    type_id: number,
+    title: string,
+    commission: number
+  ): Promise<IDBResponse> {
+    try {
+      return this.operationTypeRepository
+        .save({
+          id: type_id,
+          title,
+          commission
+        })
+        .then(() => {
+          return {
+            success: true,
+            message: 'update'
+          }
+        })
+    } catch (err) {
+      return {
+        success: false,
+        message: err.message
+      }
+    }
+  }
+  /**
    * Get operation types
    * @returns {Promise<IResponseOperationTypes>}
    */
