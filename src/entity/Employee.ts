@@ -1,11 +1,14 @@
-import { 
-  Entity, 
-  PrimaryGeneratedColumn, 
-  OneToOne, 
-  JoinColumn, 
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+  OneToMany,
   Column
 } from "typeorm";
 import { City } from "./City";
+import { Account } from "./Account";
+import { Obligation } from "./Obligation";
 
 @Entity()
 export class Employee {
@@ -33,4 +36,10 @@ export class Employee {
   })
   @JoinColumn()
   city: City;
+
+  @OneToMany((type) => Account, (account) => account.employee)
+  accounts: Account[];
+
+  @OneToMany((type) => Obligation, (obligation) => obligation.employee)
+  obligations: Obligation[];
 }

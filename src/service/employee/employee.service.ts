@@ -139,7 +139,9 @@ export class EmployeeService {
    */
   public async getEmployes(): Promise<IResponseEmployes> {
     try {
-      const employee = await this.employeeRepository.find();
+      const employee = await this.employeeRepository.find(
+        { relations: ['city'] }
+      );
 
       return {
         success: true,
@@ -161,7 +163,10 @@ export class EmployeeService {
    */
   public async getEmployeeById(id: string): Promise<IResponseEmployee> {
     try {
-      const employee = await this.employeeRepository.findOne({ id: id });
+      const employee = await this.employeeRepository.findOne(
+        { id: id }, 
+        { relations: ['city'] }
+      )
 
       return {
         success: true,

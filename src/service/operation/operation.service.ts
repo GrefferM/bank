@@ -140,7 +140,9 @@ export class OperationService {
    */
   public async getOperations(): Promise<IResponseOperations> {
     try {
-      const operation = await this.operationRepository.find();
+      const operation = await this.operationRepository.find(
+        { relations: ['operation-type', 'payer', 'recipient'] }
+      );
 
       return {
         success: true,
@@ -162,7 +164,10 @@ export class OperationService {
    */
   public async getOperationById(id: string): Promise<IResponseOperation> {
     try {
-      const operation = await this.operationRepository.findOne({ id: id });
+      const operation = await this.operationRepository.findOne(
+        { id: id },
+        { relations: ['operation-type', 'payer', 'recipient'] }
+      );
 
       return {
         success: true,

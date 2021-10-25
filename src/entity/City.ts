@@ -18,7 +18,7 @@ export class City {
   @Column({ unique: true })
   title: string;
 
-  @ManyToOne(type => Region, {
+  @ManyToOne(type => Region, (region) => region.cities, {
     nullable: false
   })
   @JoinColumn()

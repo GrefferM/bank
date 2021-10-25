@@ -156,7 +156,9 @@ export class ObligationService {
    */
   public async getObligations(): Promise<IResponseObligations> {
     try {
-      const obligation = await this.obligationRepository.find();
+      const obligation = await this.obligationRepository.find(
+        { relations: ['user', 'employee'] }
+      );
 
       return {
         success: true,
@@ -178,7 +180,10 @@ export class ObligationService {
    */
   public async getObligationById(id: string): Promise<IResponseObligation> {
     try {
-      const obligation = await this.obligationRepository.findOne({ id: id });
+      const obligation = await this.obligationRepository.findOne(
+        { id: id },
+        { relations: ['user', 'employee'] }
+      );
 
       return {
         success: true,

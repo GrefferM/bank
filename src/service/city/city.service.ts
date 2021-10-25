@@ -107,7 +107,7 @@ export class CityService {
    */
   public async getCities(): Promise<IResponseCities> {
     try {
-      const city = await this.cityRepository.find();
+      const city = await this.cityRepository.find({ relations: ["region"] });
 
       return {
         success: true,
@@ -129,7 +129,10 @@ export class CityService {
    */
   public async getCityById(id: number): Promise<IResponseCity> {
     try {
-      const city = await this.cityRepository.findOne({ id: id });
+      const city = await this.cityRepository.findOne(
+        { id: id },
+        { relations: ["region"] }
+      );
 
       return {
         success: true,
