@@ -52,7 +52,8 @@ export class AccountService {
       const account = this.accountRepository.create({
         type,
         user,
-        employee
+        employee,
+        balance: 0
       })
 
       return this.accountRepository

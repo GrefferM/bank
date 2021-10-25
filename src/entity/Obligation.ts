@@ -35,12 +35,12 @@ export class Obligation {
   })
   insurance: number;
 
-  @Column('money', {
+  @Column('float8', {
     nullable: false
   })
   current_amount: number;
 
-  @Column('money', {
+  @Column('float8', {
     nullable: false
   })
   total_amount: number;

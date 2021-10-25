@@ -37,7 +37,7 @@ export class Operation {
   })
   finished: boolean;
 
-  @Column('money', {
+  @Column('float8', {
     nullable: false
   })
   amount: number;

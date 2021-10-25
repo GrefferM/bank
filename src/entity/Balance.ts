@@ -5,7 +5,7 @@ export class Balance {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('money', {
+  @Column('float8', {
     nullable: false
   })
   amount: number;

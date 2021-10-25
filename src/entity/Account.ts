@@ -33,7 +33,7 @@ export class Account {
   @JoinColumn()
   employee: Employee;
 
-  @Column('money', {
+  @Column('float8', {
     nullable: false
   })
   balance: number;
