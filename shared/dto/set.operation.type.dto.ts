@@ -20,7 +20,7 @@ export class SetOperationTypeDTO {
     type: Number,
     required: true
   })
-  @Transform(({ value: commission }) => parseInt(commission))
+  @Transform(({ value: commission }) => parseFloat(commission))
   @IsPositive()
   @IsNumber()
   commission: number;

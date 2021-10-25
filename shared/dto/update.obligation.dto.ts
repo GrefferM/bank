@@ -34,7 +34,7 @@ export class UpdateObligationDTO {
     type: Number,
     required: true
   })
-  @Transform(({ value: percent }) => parseInt(percent))
+  @Transform(({ value: percent }) => parseFloat(percent))
   @IsPositive()
   @IsNumber()
   percent: number;
@@ -43,7 +43,7 @@ export class UpdateObligationDTO {
     type: Number,
     required: true
   })
-  @Transform(({ value: insurance }) => parseInt(insurance))
+  @Transform(({ value: insurance }) => parseFloat(insurance))
   @IsPositive()
   @IsNumber()
   insurance: number;
@@ -52,7 +52,7 @@ export class UpdateObligationDTO {
     type: Number,
     required: true
   })
-  @Transform(({ value: current_amount }) => parseInt(current_amount))
+  @Transform(({ value: current_amount }) => parseFloat(current_amount))
   @IsPositive()
   @IsNumber()
   current_amount: number;
@@ -61,7 +61,7 @@ export class UpdateObligationDTO {
     type: Number,
     required: true
   })
-  @Transform(({ value: total_amount }) => parseInt(total_amount))
+  @Transform(({ value: total_amount }) => parseFloat(total_amount))
   @IsPositive()
   @IsNumber()
   total_amount: number;

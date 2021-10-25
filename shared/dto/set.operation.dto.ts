@@ -34,7 +34,7 @@ export class SetOperationDTO {
     type: Number,
     required: true
   })
-  @Transform(({ value: amount }) => parseInt(amount))
+  @Transform(({ value: amount }) => parseFloat(amount))
   @IsPositive()
   @IsNumber()
   amount: number;

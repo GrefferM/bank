@@ -29,6 +29,7 @@ export class OperationTypeService {
     commission: number
   ): Promise<IDBResponse> {
     try {
+      console.log(commission)
       const operation_type = this.operationTypeRepository.create({
         title,
         commission
