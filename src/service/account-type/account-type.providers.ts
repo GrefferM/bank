@@ -1,11 +1,11 @@
 import { Connection } from 'typeorm';
-import { City } from './../../entity/City';
+import { AccountType } from './../../entity/AccountType';
 import { DATABASE_CONNECTION, ACCOUNT_TYPE_REPOSITORY } from './../../constants';
 
 export const accountTypeProviders = [
   {
     provide: ACCOUNT_TYPE_REPOSITORY,
-    useFactory: (connection: Connection) => connection.getRepository(City),
+    useFactory: (connection: Connection) => connection.getRepository(AccountType),
     inject: [DATABASE_CONNECTION],
   },
 ];
