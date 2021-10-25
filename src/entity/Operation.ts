@@ -26,7 +26,7 @@ export class Operation {
   @JoinColumn()
   recipient: User;
 
-  @ManyToOne(type => OperationType, {
+  @ManyToOne(type => OperationType, (type) => type.operations, {
     nullable: false
   })
   @JoinColumn()

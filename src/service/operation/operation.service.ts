@@ -141,7 +141,7 @@ export class OperationService {
   public async getOperations(): Promise<IResponseOperations> {
     try {
       const operation = await this.operationRepository.find(
-        { relations: ['operation-type', 'payer', 'recipient'] }
+        { relations: ['payer', 'recipient', 'type'] }
       );
 
       return {
@@ -166,7 +166,7 @@ export class OperationService {
     try {
       const operation = await this.operationRepository.findOne(
         { id: id },
-        { relations: ['operation-type', 'payer', 'recipient'] }
+        { relations: ['payer', 'recipient', 'type'] }
       );
 
       return {

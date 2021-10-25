@@ -138,7 +138,7 @@ export class AccountService {
   public async getAccounts(): Promise<IResponseAccounts> {
     try {
       const account = await this.accountRepository.find(
-        { relations: ["account_type", "user", "employee"] }
+        { relations: ["user", "employee", "type"] }
       );
 
       return {
@@ -163,7 +163,7 @@ export class AccountService {
     try {
       const account = await this.accountRepository.findOne(
         { id: id },
-        { relations: ["account_type", "user", "employee"] }
+        { relations: ["user", "employee", "type"] }
       );
 
       return {
