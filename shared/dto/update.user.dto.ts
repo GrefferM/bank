@@ -31,7 +31,6 @@ export class UpdateUserDTO {
     required: true
   })
   @IsPhoneNumber('UA')
-  @Length(7, 15)
   @IsString()
   phone: string;
 
@@ -40,7 +39,6 @@ export class UpdateUserDTO {
     required: true
   })
   @IsEmail()
-  @Length(5, 64)
   @IsString()
   email: string;
 
